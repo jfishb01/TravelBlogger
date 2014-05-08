@@ -1,0 +1,122 @@
+@import "bootstrap";
+
+
+/* mixins, variables, etc. */
+
+$grayMediumLight: #eaeaea;
+$darkBlue: #081077;
+$lightBlue: #1d8ce6;
+
+@mixin box_sizing {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+
+
+/* Universal */
+
+html {
+  overflow-y: scroll;
+}
+
+body {
+  padding-top: 60px;
+}
+
+section {
+  overflow: auto;
+}
+
+textarea {
+  resize: vertical;
+}
+
+
+
+
+/* Header */
+
+.navbar {
+  /*background-color: white;*/
+  /*border-color: $grayMediumLight;*/
+}
+
+
+.navbar-inner{
+  background: #3f3f3f;
+  background-image: linear-gradient(to bottom, #3f3f3f 0%,#595959 18%,#2d2d2d 50%,#2d2d2d 50%,#282828 55%,#0e0e0e 100%);
+}
+
+#logo {
+  float: left;
+  margin-right: 10px;
+  font-size: 1.7em;
+  color: #e9ecec;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  padding-top: 9px;
+  font-weight: bold;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.header_links {
+  color: #e9ecec !important;
+  text-transform: uppercase;
+  display: inline;
+  font-size: 1.2em;
+  font-weight: bold;
+  text-shadow: none !important;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+
+
+
+/* footer */
+
+footer {
+  margin-top: 45px;
+  padding-top: 5px;
+  border-top: 1px solid $grayMediumLight;
+  color: $darkBlue;
+  a {
+    color: $gray;
+    &:hover {
+      color: DarkGray;
+      text-decoration: none;
+    }
+  }
+  img {
+    -webkit-filter: opacity(65%);
+  }
+  p {
+    color: $gray;
+    display: inline;
+  }
+  small {
+    float: left;
+  }
+  ul {
+    display: inline;
+    float: right;
+    list-style: none;
+    li {
+      float: left;
+      margin-left: 10px;
+    }
+  }
+}
+
+.debug_dump {
+  clear: both;
+  float: left;
+  width: 100%;
+  margin-top: 45px;
+  @include box_sizing;
+}
