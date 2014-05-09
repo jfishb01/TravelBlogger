@@ -3,9 +3,9 @@
 
 /* mixins, variables, etc. */
 
-$grayMediumLight: #eaeaea;
-$darkBlue: #081077;
-$lightBlue: #1d8ce6;
+$grayMediumLight: #969696;
+$offWhite: #e9ecec;
+$offBlack: #0e0e0e;
 
 @mixin box_sizing {
   -moz-box-sizing: border-box;
@@ -19,10 +19,13 @@ $lightBlue: #1d8ce6;
 
 html {
   overflow-y: scroll;
+  background: $offBlack;
+  height: 100%;
 }
 
 body {
   padding-top: 60px;
+  height: 100%;
 }
 
 section {
@@ -38,22 +41,17 @@ textarea {
 
 /* Header */
 
-.navbar {
-  /*background-color: white;*/
-  /*border-color: $grayMediumLight;*/
-}
-
-
 .navbar-inner{
   background: #3f3f3f;
-  background-image: linear-gradient(to bottom, #3f3f3f 0%,#595959 18%,#2d2d2d 50%,#2d2d2d 50%,#282828 55%,#0e0e0e 100%);
+  background-image: linear-gradient(to bottom, #3f3f3f 0%,#595959 18%,#2d2d2d 50%,#2d2d2d 50%,#282828 55%,$offBlack 100%);
+  border: none;
 }
 
 #logo {
   float: left;
   margin-right: 10px;
   font-size: 1.7em;
-  color: #e9ecec;
+  color: $offWhite;
   text-transform: uppercase;
   letter-spacing: -1px;
   padding-top: 9px;
@@ -64,13 +62,14 @@ textarea {
 }
 
 .header_links {
-  color: #e9ecec !important;
+  color: $offWhite !important;
   text-transform: uppercase;
   display: inline;
   font-size: 1.2em;
   font-weight: bold;
   text-shadow: none !important;
   &:hover {
+    color: $grayMediumLight !important;
     text-decoration: none;
   }
 }
@@ -78,17 +77,27 @@ textarea {
 
 
 
+
+/* Sidebar */
+
+
+
+
+
+
+
 /* footer */
 
 footer {
-  margin-top: 45px;
+  position: absolute;
+  width: 920px;
+  bottom: 0px;
   padding-top: 5px;
-  border-top: 1px solid $grayMediumLight;
-  color: $darkBlue;
+  border-top: 1px solid $offWhite;
   a {
-    color: $gray;
+    color: $offWhite;
     &:hover {
-      color: DarkGray;
+      color: $grayMediumLight;
       text-decoration: none;
     }
   }
@@ -113,10 +122,56 @@ footer {
   }
 }
 
+
+
+/* containers */
+
+#about-content-box {
+  margin-top: 2.5%;
+}
+
+.content-box {
+  background: $offWhite;
+  border-color: $offBlack;
+  border: 3px;
+  border-style: solid;
+  border-radius: 40px;
+  opacity: 0.94;
+}
+
 .debug_dump {
   clear: both;
   float: left;
-  width: 100%;
+  /*width: 70%;*/
+  width: 920px;
   margin-top: 45px;
+  position: absolute;
+  bottom: -100px;
   @include box_sizing;
 }
+
+
+
+
+/* content */
+
+.content {
+  color: $offBlack;
+  margin-top: 8px;
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+
+
+/* Background Images */
+
+.map-bg {
+  background: url('home-bg.png');
+  /*background-size: 95%;*/
+  /*background-position: 40px 0px;*/
+  background-size: 78%;
+  background-position: 130px 0px;
+  background-repeat: no-repeat;
+}
+
