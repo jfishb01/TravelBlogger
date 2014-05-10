@@ -1,0 +1,25 @@
+<script>
+$(document).mousemove(function(e){
+  var x_pos = e.pageX;
+
+  if(x_pos >= $(window).width() - 350) {
+      $( "#sidebar" ).show( "slide", { direction: "right" }, 250 );
+  } else {
+      $( "#sidebar" ).hide( "slide", { direction: "right" }, 250 );
+  }
+
+});
+
+// $( document ).click(function() {
+//   $( "#sidebar" ).toggle( "slide", { direction: "right" }, 250 );
+// });
+</script>
+
+
+<div id="sidebar">
+  <p class="sidebar-nav">
+    <a href="#">Another link</a><br/>
+    <a href="#">Next link</a><br/>
+    <a href="#">Last link</a><br/>
+  </p>
+</div>

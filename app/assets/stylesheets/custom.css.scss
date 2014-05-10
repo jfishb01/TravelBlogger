@@ -105,7 +105,7 @@ footer {
     -webkit-filter: opacity(65%);
   }
   p {
-    color: $gray;
+    color: $offWhite;
     display: inline;
   }
   small {
@@ -175,3 +175,28 @@ footer {
   background-repeat: no-repeat;
 }
 
+/* Sidebar */
+
+#sidebar {
+  right: 0px;
+  width: 250px;
+  background: #1E1E1E;
+  position: fixed;
+  height: 75%;
+  top: 60px;
+  border-left: 4px;
+  border-top: 4px;
+  border-bottom: 4px;
+  border-style: solid;
+  border-color: $offBlack;
+}
+
+.sidebar-nav {
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  width: 250px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}

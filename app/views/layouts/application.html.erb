@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>TravelBlogger</title>
+  <title>Travel Blog</title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
@@ -14,6 +14,7 @@
       <div class="alert alert-<%= key %>"><%= value %></div>
     <% end %>
     <%= yield %>
+    <%= render 'layouts/sidebar' %>
   </body>
   <%= render 'layouts/footer' %>
   <%= debug(params) if Rails.env.development? %>
