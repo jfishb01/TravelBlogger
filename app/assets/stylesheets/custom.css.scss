@@ -126,11 +126,8 @@ footer {
 
 /* containers */
 
-#about-content-box {
-  margin-top: 2.5%;
-}
-
 .content-box {
+  margin-top: 8%;
   background: $offWhite;
   border-color: $offBlack;
   border: 3px;
@@ -160,6 +157,7 @@ footer {
   margin-top: 8px;
   margin-right: 20px;
   margin-left: 20px;
+  font-size: 20px;
 }
 
 
@@ -199,4 +197,30 @@ footer {
   list-style: none;
   margin: 0;
   padding: 0;
+}
+
+
+/* miscenalleous */
+
+.center {
+  text-align: center;
+}
+
+#sign-up-link-div {
+  position: absolute;
+  bottom: 90px;
+  width: 920px;
+}
+
+#sign-up-link {
+/*  border: solid;
+  border-width: 5px;
+  border-color: #1E1E1E;
+  border-radius: 12px;
+  padding: 10px;*/
+  font-size: 28px;
+  &:hover {
+    text-decoration: none;
+    color: #0088cc;
+  }
 }
