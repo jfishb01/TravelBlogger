@@ -1,29 +1,82 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<script>
+  $(document).ready(function() {
+    $('body').addClass('map-bg')
+  });
+</script>
 
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
-  <%= devise_error_messages! %>
+<div class='form-box'>
+  <div class='form-content'>
+    <h2 class='center'>Edit Account</h2>
+    <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
 
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email, :autofocus => true %></div>
+      <br/>
 
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
+      <div id='sign-in-form-content'>
 
-  <div><%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-  <%= f.password_field :password, :autocomplete => "off" %></div>
+        <% if devise_mapping.confirmable? &&
+          resource.pending_reconfirmation? %>
+          <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+        <% else %>
 
-  <div><%= f.label :password_confirmation %><br />
-  <%= f.password_field :password_confirmation %></div>
+          <br/>
 
-  <div><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-  <%= f.password_field :current_password %></div>
+          <% if @user.errors[:first_name].blank? %>
+            <p class='input-width'> First Name </p>
+          <% else %>
+            <p class="form-error">
+              <i>First Name
+              <%= @user.errors[:first_name].first %></i>
+            </p>
+          <% end %>
+          <%= f.text_field :first_name, :autofocus => true %>
 
-  <div><%= f.submit "Update" %></div>
-<% end %>
+          <br/>
 
-<h3>Cancel my account</h3>
+          <% if @user.errors[:last_name].blank? %>
+            <p class='input-width'> Last Name </p>
+          <% else %>
+            <p class="form-error">
+              <i>Last Name
+              <%= @user.errors[:last_name].first %></i>
+            </p>
+          <% end %>
+          <%= f.text_field :last_name %>
 
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %></p>
+          <br/>
 
-<%= link_to "Back", :back %>
+          <% if @user.errors[:password].blank? %>
+            <p class='input-width'>New Password <i>(leave blank if you don't want to change it)</i></p>
+          <% else %>
+            <p class="form-error">
+              <i>New Password
+              <%= @user.errors[:password].first %></i>
+            </p>
+          <% end %>
+          <%= f.password_field :password, :autocomplete => "off" %>
+
+          <% if @user.errors[:password_confirmation].blank? %>
+            <p class='input-width'> New Password Confirmation</i></p>
+          <% else %>
+            <p class="form-error">
+              <i> New Password Confirmation
+              <%= @user.errors[:password_confirmation].first %></i>
+            </p>
+          <% end %>
+          <%= f.password_field :password_confirmation %>
+
+          <br/>
+          <br/>
+          <br/>
+          <div><%= f.submit "Update", class: 'btn-black' %></div>
+        </div>
+      <% end %>
+    <% end %>
+
+    <div class='center'>
+      <br/>
+      <h3>Cancel my account</h3>
+
+      <p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete, class: 'btn-black' %></p>
+    </div>
+  </div>
+</div>

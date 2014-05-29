@@ -1,18 +1,97 @@
-<h2>Sign up</h2>
+<script>
+  $(document).ready(function() {
+    $('body').addClass('map-bg')
+  });
+</script>
 
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
+<div class='form-box'>
+  <div class='form-content'>
+    <h2 class='center'>Sign up</h2>
+    <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
 
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email, :autofocus => true %></div>
+      <br/>
 
-  <div><%= f.label :password %><br />
-  <%= f.password_field :password %></div>
+      <div class='container-fluid'>
+        <div class='span2'>
+          <% if @user.errors[:first_name].blank? %>
+            <p> First Name </p>
+          <% else %>
+            <p class="form-error">
+              <i>First Name
+              <%= @user.errors[:first_name].first %></i>
+            </p>
+          <% end %>
+          <%= f.text_field :first_name, :autofocus => true %>
 
-  <div><%= f.label :password_confirmation %><br />
-  <%= f.password_field :password_confirmation %></div>
+          <% if @user.errors[:last_name].blank? %>
+            <p> Last Name </p>
+          <% else %>
+            <p class="form-error">
+              <i>Last Name
+              <%= @user.errors[:last_name].first %></i>
+            </p>
+          <% end %>
+          <%= f.text_field :last_name %>
 
-  <div><%= f.submit "Sign up" %></div>
-<% end %>
+          <% if @user.errors[:email].blank? %>
+            <p> Email </p>
+          <% else %>
+            <p class="form-error">
+              <i>Email
+              <%= @user.errors[:email].first %></i>
+            </p>
+          <% end %>
+          <%= f.email_field :email %>
 
-<%= render "devise/shared/links" %>
+          <% if @user.errors[:password].blank? %>
+            <p> Password </p>
+          <% else %>
+            <p class="form-error">
+              <i>Password
+              <%= @user.errors[:password].first %></i>
+            </p>
+          <% end %>
+          <%= f.password_field :password %>
+
+          <% if @user.errors[:password_confirmation].blank? %>
+            <p> Password Confirmation </p>
+          <% else %>
+            <p class="form-error">
+              <i>Password Confirmation
+              <%= @user.errors[:password_confirmation].first %></i>
+            </p>
+          <% end %>
+          <%= f.password_field :password_confirmation %>
+
+        </div>
+
+        <div class='span6 offset2'>
+          <% if @user.errors[:terms_of_service].blank? %>
+            <p> Terms of Agreement </p>
+          <% else %>
+            <p class="form-error">
+              <i>Terms of Agreement
+              <%= @user.errors[:terms_of_service].first %></i>
+            </p>
+          <% end %>
+          <textarea readonly rows="8" id="terms_of_agreement"
+            style="resize: none;" onload="$(this).scrollTop = 0">By accepting these terms of agreement, you agree not to publish content that is unlawful, harmful, threatening, abusive, harassing, tortious, defamatory, vulgar, obscene, libelous, invasive of another's privacy, hateful, racially, ethnically or otherwise objectionable. You may not redistribute any content from the website unless you obtain permission from the content's owner or are otherwise permitted by law. If the website is used inappropriately, we reserve all rights to edit and delete content as well as delete user accounts.
+          </textarea>
+          <br/>
+          <label class="checkbox inline" ><%= f.check_box :terms_of_service %>
+          I agree to the preceding terms and conditions.
+          </label>
+
+          <br/>
+          <br/>
+
+          <div class='center'><%= f.submit "Sign up", class: 'btn-black' %></div>
+        <% end %>
+        <br/>
+        <div class="center">
+          <%= render "devise/shared/links" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

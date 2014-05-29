@@ -15,3 +15,17 @@
 //= require turbolinks
 //= require bootstrap
 //= require_tree .
+
+
+$(document).ready( function() {
+  $(document).mousemove(function(e){
+    var y_pos = e.pageY;
+
+    if(y_pos >= $(window).height() - 20) {
+        $(".debug_dump" ).css("visibility", "visible");
+    } else {
+        $(".debug_dump" ).css("visibility", "hidden");
+    }
+  });
+});
+

@@ -1,17 +1,61 @@
-<h2>Sign in</h2>
+<script>
+  $(document).ready(function() {
+    $('body').addClass('map-bg')
+  });
+</script>
 
-<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email, :autofocus => true %></div>
 
-  <div><%= f.label :password %><br />
-  <%= f.password_field :password %></div>
 
-  <% if devise_mapping.rememberable? -%>
-    <div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
-  <% end -%>
+<div class='form-box'>
+  <div class='form-content'>
+    <h2 class='center'>Sign in</h2>
+    <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
 
-  <div><%= f.submit "Sign in" %></div>
-<% end %>
+      <br/>
+      <br/>
 
-<%= render "devise/shared/links" %>
+      <div id='sign-in-form-content'>
+        <% if @user.errors[:email].blank? %>
+          <p> Email </p>
+        <% else %>
+          <p class="form-error">
+            <i>Email
+            <%= @user.errors[:email].first %></i>
+          </p>
+        <% end %>
+        <%= f.text_field :email, :autofocus => true %>
+
+        <br/>
+        <br/>
+
+        <% if @user.errors[:password].blank? %>
+          <p> Password </p>
+        <% else %>
+          <p class="form-error">
+            <i>Password
+            <%= @user.errors[:password].first %></i>
+          </p>
+        <% end %>
+        <%= f.password_field :password %>
+
+        <br/>
+
+        <% if devise_mapping.rememberable? -%>
+          <label class="checkbox inline" ><%= f.check_box :remember_me %>Remember me</label>
+        <% end -%>
+
+        <br/>
+        <br/>
+        <br/>
+      </div>
+
+      <div class='center'>
+        <div><%= f.submit "Sign in", class: 'btn-black' %></div>
+        <br/>
+        <%= render "devise/shared/links" %>
+      </div>
+    <% end %>
+
+  </div>
+</div>
+

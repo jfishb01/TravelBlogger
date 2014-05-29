@@ -11,7 +11,9 @@
   <%= render 'layouts/header' %>
   <body>
     <% flash.each do |key, value| %>
-      <div class="alert alert-<%= key %>"><%= value %></div>
+      <% if !value.blank? %>
+        <div class="alert alert-<%= key %>"><%= value %></div>
+      <% end %>
     <% end %>
     <%= yield %>
     <%= render 'layouts/sidebar' %>

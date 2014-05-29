@@ -1,20 +1,67 @@
 <script>
-$(document).mousemove(function(e){
-  var x_pos = e.pageX;
+  $(document).ready( function() {
+    $( "#sidebar-tab" ).hide( "slide", { direction: "right" }, 250 );
+    $( "#sidebar" ).hide( "slide", { direction: "right" }, 250 );
+    $(".profile-toggle").click(function(e){
+      // $( "#sidebar-tab" ).css("visibility", "visible");
+      $( "#sidebar" ).css("visibility", "visible");
+      $( "#sidebar-tab" ).toggle( "slide", { direction: "right" }, 250 );
+      $( "#sidebar" ).toggle( "slide", { direction: "right" }, 250 );
+    });
 
-  if(x_pos >= $(window).width() - 350) {
-      $( "#sidebar" ).show( "slide", { direction: "right" }, 250 );
-  } else {
-      $( "#sidebar" ).hide( "slide", { direction: "right" }, 250 );
-  }
-});
+    $('#profile_pic').hover(function (e) {
+      $('#edit_avatar-link').css("visibility", "visible");
+    }, function (e) {
+      $('#edit_avatar-link').css("visibility", "hidden");
+    });
+
+    $("#upload_avatar-link").click(function (e) {
+      $("#user_avatar").trigger('click');
+    });
+
+    $("#edit_avatar-link").click(function (e) {
+      $("#user_avatar").trigger('click');
+    });
+
+    $("#user_avatar").on('change', function (e) {
+      $(".edit_user").submit();
+    });
+  });
 </script>
 
+<% if(user_signed_in?) %>
+  <div id="sidebar-toggle" class='profile-toggle'><p>Profile</p></div>
+  <div id="sidebar-tab" class='profile-toggle'><p>Profile</p></div>
+  <div id="sidebar">
+    <p class="sidebar-nav">
+      <br/>
+      <% if current_user.avatar_file_name.nil? %>
+        <%= form_for current_user, :url => registration_path(current_user),
+          :html => { :method => :put } do |f| %>
+          <p id="upload_avatar-link"> Upload Profile Picture</p>
+          <%= f.file_field :avatar, style: "display:none" %>
+        <% end %>
+      <% else %>
+        <div id='profile_pic' class='center'>
+          <%= form_for current_user, :url => registration_path(current_user),
+            :html => { :method => :put } do |f| %>
+            <p id="edit_avatar-link"> Edit Pic</p>
+            <%= f.file_field :avatar, style: "display:none" %>
+            <%= image_tag current_user.avatar.url(:thumb) %>
+          <% end %>
+        </div>
+      <% end %>
+      <div id="username">
+        <%= "#{current_user.first_name} #{current_user.last_name}" %>
+      </div>
+      <br/>
+      <a href="#">Next link</a><br/>
+      <a href="#">Last link</a><br/>
+      <%= link_to "Settings", edit_user_registration_path,
+        id: "settings-btn" %>
+      <p class="profile-toggle" id="hide-btn">Hide</p><br/>
+    </p>
+  </div>
+<% end %>
 
-<div id="sidebar">
-  <p class="sidebar-nav">
-    <a href="#">Another link</a><br/>
-    <a href="#">Next link</a><br/>
-    <a href="#">Last link</a><br/>
-  </p>
-</div>
+
