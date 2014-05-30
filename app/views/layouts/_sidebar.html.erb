@@ -3,7 +3,7 @@
     $( "#sidebar-tab" ).hide( "slide", { direction: "right" }, 250 );
     $( "#sidebar" ).hide( "slide", { direction: "right" }, 250 );
     $(".profile-toggle").click(function(e){
-      // $( "#sidebar-tab" ).css("visibility", "visible");
+      $( "#sidebar-tab" ).css("visibility", "visible");
       $( "#sidebar" ).css("visibility", "visible");
       $( "#sidebar-tab" ).toggle( "slide", { direction: "right" }, 250 );
       $( "#sidebar" ).toggle( "slide", { direction: "right" }, 250 );
@@ -26,6 +26,12 @@
     $("#user_avatar").on('change', function (e) {
       $(".edit_user").submit();
     });
+
+    // $('#new_blog').hover(function (e) {
+    //   $('#create_new-img').css("visibility", "hidden");
+    // }, function (e) {
+    //   $('#create_new-img').css("visibility", "visible");
+    // });
   });
 </script>
 
@@ -54,12 +60,21 @@
       <div id="username">
         <%= "#{current_user.first_name} #{current_user.last_name}" %>
       </div>
-      <br/>
-      <a href="#">Next link</a><br/>
-      <a href="#">Last link</a><br/>
-      <%= link_to "Settings", edit_user_registration_path,
-        id: "settings-btn" %>
-      <p class="profile-toggle" id="hide-btn">Hide</p><br/>
+
+
+      <% if false %>
+      <%= current_user.blogs.each do |blog| %>
+        <%= blog.name %>
+      <% end %>
+      <% end %>
+
+
+      <div id='new_blog'>
+        <%= image_tag "circle_plus.png", alt: "+", height: "24", width: "24", id: 'create_new-img' %>
+        <%= link_to "New Blog", "#", id: "new_blog-btn" %>
+      </div>
+      <%= link_to "Account", edit_user_registration_path,
+        id: "edit_account-btn" %>
     </p>
   </div>
 <% end %>
