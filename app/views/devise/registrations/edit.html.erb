@@ -7,76 +7,77 @@
 <div class='form-box'>
   <div class='form-content'>
     <h2 class='center'>Edit Account</h2>
-    <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
-
-      <br/>
-
-      <div id='sign-in-form-content'>
-
-        <% if devise_mapping.confirmable? &&
-          resource.pending_reconfirmation? %>
-          <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-        <% else %>
+    <div class='container-fluid'>
+      <div class='span2 offset1'>
+        <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
 
           <br/>
 
-          <% if @user.errors[:first_name].blank? %>
-            <p class='input-width'> First Name </p>
+          <% if devise_mapping.confirmable? &&
+            resource.pending_reconfirmation? %>
+            <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
           <% else %>
-            <p class="form-error">
-              <i>First Name
-              <%= @user.errors[:first_name].first %></i>
-            </p>
+
+            <br/>
+
+            <% if @user.errors[:first_name].blank? %>
+              <p class='input-width'> First Name </p>
+            <% else %>
+              <p class="form-error">
+                <i>First Name
+                <%= @user.errors[:first_name].first %></i>
+              </p>
+            <% end %>
+            <%= f.text_field :first_name, :autofocus => true %>
+
+            <br/>
+
+            <% if @user.errors[:last_name].blank? %>
+              <p class='input-width'> Last Name </p>
+            <% else %>
+              <p class="form-error">
+                <i>Last Name
+                <%= @user.errors[:last_name].first %></i>
+              </p>
+            <% end %>
+            <%= f.text_field :last_name %>
+
+            <br/>
+
+            <% if @user.errors[:password].blank? %>
+              <p class='input-width'>New Password <i>(leave blank if you don't want to change it)</i></p>
+            <% else %>
+              <p class="form-error">
+                <i>New Password
+                <%= @user.errors[:password].first %></i>
+              </p>
+            <% end %>
+            <%= f.password_field :password, :autocomplete => "off" %>
+
+            <% if @user.errors[:password_confirmation].blank? %>
+              <p class='input-width'> New Password Confirmation</i></p>
+            <% else %>
+              <p class="form-error">
+                <i> New Password Confirmation
+                <%= @user.errors[:password_confirmation].first %></i>
+              </p>
+            <% end %>
+            <%= f.password_field :password_confirmation %>
+
+            <br/>
+            <br/>
+            <div class='center'><%= f.submit "Update", class: 'btn-black' %></div>
           <% end %>
-          <%= f.text_field :first_name, :autofocus => true %>
+        <% end %>
+      </div>
 
+      <div class='span4 offset3'>
+        <div class='center'>
           <br/>
 
-          <% if @user.errors[:last_name].blank? %>
-            <p class='input-width'> Last Name </p>
-          <% else %>
-            <p class="form-error">
-              <i>Last Name
-              <%= @user.errors[:last_name].first %></i>
-            </p>
-          <% end %>
-          <%= f.text_field :last_name %>
-
-          <br/>
-
-          <% if @user.errors[:password].blank? %>
-            <p class='input-width'>New Password <i>(leave blank if you don't want to change it)</i></p>
-          <% else %>
-            <p class="form-error">
-              <i>New Password
-              <%= @user.errors[:password].first %></i>
-            </p>
-          <% end %>
-          <%= f.password_field :password, :autocomplete => "off" %>
-
-          <% if @user.errors[:password_confirmation].blank? %>
-            <p class='input-width'> New Password Confirmation</i></p>
-          <% else %>
-            <p class="form-error">
-              <i> New Password Confirmation
-              <%= @user.errors[:password_confirmation].first %></i>
-            </p>
-          <% end %>
-          <%= f.password_field :password_confirmation %>
-
-          <br/>
-          <br/>
-          <br/>
-          <div><%= f.submit "Update", class: 'btn-black' %></div>
+          <h3 class='vcenter'>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete, class: 'btn-black' %></h3>
         </div>
-      <% end %>
-    <% end %>
-
-    <div class='center'>
-      <br/>
-      <h3>Cancel my account</h3>
-
-      <p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete, class: 'btn-black' %></p>
+      </div>
     </div>
   </div>
 </div>

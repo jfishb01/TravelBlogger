@@ -18,7 +18,7 @@ $offBlack: #0e0e0e;
 /* Universal */
 
 html {
-  overflow-y: scroll;
+  // overflow-y: scroll;
   background: $offBlack;
   height: 100%;
 }
@@ -26,6 +26,7 @@ html {
 body {
   padding-top: 60px;
   height: 100%;
+  overflow: hidden;
 }
 
 section {
@@ -38,6 +39,17 @@ textarea {
 
 
 
+
+/* Alignment */
+
+.center {
+  text-align: center;
+}
+
+.vcenter {
+  margin-top: 12%;
+  position: absolute;
+}
 
 /* Header */
 
@@ -135,6 +147,10 @@ footer {
   opacity: 0.94;
 }
 
+#sign-in-form-content {
+  margin-left: 38%;
+}
+
 .debug_dump {
   clear: both;
   float: left;
@@ -161,7 +177,7 @@ footer {
   color: #0088cc;
   &:hover {
     text-decoration: none;
-    color: #0088cc;
+    background: #5c5c5c;
   }
 }
 
@@ -186,8 +202,22 @@ footer {
   }
 }
 
-#sign-in-form-content {
- margin-left: 37.5%;
+.blog_name_border {
+  margin-left: 15px;
+}
+
+.blog_name {
+  color: $offWhite;
+  line-height: 40px;
+  margin-right: 15px;
+  margin-left: 15px;
+  padding-top: 20px;
+  font-size: 18px;
+  &:hover {
+    text-decoration: none;
+    color: $grayMediumLight;
+    cursor: pointer;
+  }
 }
 
 .devise-link {
@@ -310,9 +340,17 @@ footer {
 
 /* miscenalleous */
 
-#profile_pic {
+#profile_pic-div {
   margin-top: 10px;
   margin-bottom: 10px;
+}
+
+#profile_pic {
+  border-radius: 30px;
+  height: 60px;
+  width: 60px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+  position: relative;
 }
 
 #upload_avatar-link {
@@ -335,10 +373,12 @@ footer {
   color: white;
   background: $offBlack;
   opacity: 0.8;
+  left: 85px;
   text-align: center;
-  position: fixed;
-  margin-top: 55px;
+  position: absolute;
+  margin-top: 37px;
   width: 80px;
+  z-index: 10;
   &:hover {
     text-decoration: none;
     color: $grayMediumLight;
@@ -355,20 +395,25 @@ footer {
   text-align: center;
   position: absolute;
   bottom: 20px;
-  left: 39%;
+  width: 100%;
   &:hover {
     text-decoration: none;
     color: $grayMediumLight;
   }
 }
 
-#create_new-img {
-  position: absolute;
-  left: 10px;
+.blog-list {
+  max-height: 63%;
+  overflow-y: scroll;
+  position: relative;
 }
 
-#new_blog {
+#new_blog-link {
+  height: 24px;
+  width: 175px;
   padding-top: 10px;
+  padding-bottom: 6px;
+  position: relative;
   &:hover {
     text-decoration: none;
     color: $grayMediumLight;
@@ -396,6 +441,11 @@ footer {
   }
 }
 
+#create_new-img {
+  position: absolute;
+  left: 10px;
+}
+
 #username {
   margin-left: 15px;
   margin-right: 15px;
@@ -403,10 +453,7 @@ footer {
   text-transform: uppercase;
   color: $offWhite;
   text-align: center;
-  padding-bottom: 15px;
-  border-bottom: solid;
-  border-width: 4px;
-  border-color: $offBlack;
+  padding-bottom: 4px;
 }
 
 #terms_of_agreement {
@@ -421,10 +468,6 @@ footer {
     text-decoration: none;
     color: #005d8b;
   }
-}
-
-.center {
-  text-align: center;
 }
 
 #sign-up-link-div {

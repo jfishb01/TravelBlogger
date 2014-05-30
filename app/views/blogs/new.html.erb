@@ -1,0 +1,40 @@
+<script>
+  $(document).ready(function() {
+    $('body').addClass('map-bg')
+  });
+</script>
+
+
+
+<div class='form-box'>
+  <div class='form-content'>
+    <h2 class='center'>New Blog</h2>
+    <%= form_for(@blog, url: blogs_path,
+      html: { method: :post, :multipart => true }) do |f| %>
+
+      <br/>
+      <br/>
+
+      <div id='sign-in-form-content'>
+        <% if @blog.errors[:name].blank? %>
+          <p> Title </p>
+        <% else %>
+          <p class="form-error">
+            <i>Title
+            <%= @blog.errors[:name].first %></i>
+          </p>
+        <% end %>
+        <%= f.text_field :name, :autofocus => true %>
+
+        <br/>
+        <br/>
+        <br/>
+      </div>
+
+      <div class='center'>
+        <%= f.submit "Create", class: 'btn-black' %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
