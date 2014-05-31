@@ -1,7 +1,9 @@
 TravelBlogger::Application.routes.draw do
   devise_for :users, :controllers => { :registrations => "users/registrations" }
 
-  resources :blogs
+  resources :journeys do
+    resources :stops
+  end
 
   root  'static_pages#home'
   match '/',             to: 'static_pages#home',         via: 'get'

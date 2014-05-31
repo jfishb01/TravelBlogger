@@ -11,9 +11,9 @@ class User < ActiveRecord::Base
   has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "80x80>" }, :default_url => "/images/:style/missing.png"
   validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
 
-  has_many :blogs, dependent: :destroy
+  has_many :journeys, dependent: :destroy
 
-  accepts_nested_attributes_for :blogs, allow_destroy: true
+  accepts_nested_attributes_for :journeys, allow_destroy: true
 
   validates :first_name, presence: true, length: { maximum: 30 }
   validates :last_name, presence: true, length: { maximum: 30 }
@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
       :message => "6-32 characters"  },
       on: :update, allow_blank: true
   validates :terms_of_service, :allow_nil => false, acceptance: true, on: :create
-  validates_associated :blogs
+  validates_associated :journeys
 
 end
 

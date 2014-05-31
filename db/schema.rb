@@ -11,17 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140530184253) do
+ActiveRecord::Schema.define(version: 20140531181730) do
 
-  create_table "blogs", force: true do |t|
+  create_table "journeys", force: true do |t|
     t.integer  "user_id"
-    t.string   "name"
     t.string   "photo_file_name"
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "title"
+  end
+
+  create_table "stops", force: true do |t|
+    t.string  "location"
+    t.string  "title"
+    t.float   "latitude"
+    t.float   "longitude"
+    t.text    "content"
+    t.integer "journey_id"
   end
 
   create_table "users", force: true do |t|

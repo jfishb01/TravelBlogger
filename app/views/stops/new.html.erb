@@ -1,0 +1,58 @@
+<script>
+  $(document).ready(function() {
+    $('body').addClass('map-bg')
+  });
+</script>
+
+
+
+<div class='form-box'>
+  <div class='form-content'>
+    <h2 class='center'>New Stop</h2>
+    <%= form_for(@stop, url: journey_stops_path,
+      html: { method: :post, :multipart => true }) do |f| %>
+
+      <br/>
+      <br/>
+
+      <div id='sign-in-form-content'>
+        <% if @stop.errors[:title].blank? %>
+          <p> Title </p>
+        <% else %>
+          <p class="form-error">
+            <i>Title
+            <%= @stop.errors[:title].first %></i>
+          </p>
+        <% end %>
+        <%= f.text_field :title, :autofocus => true %>
+
+        <% if @stop.errors[:location].blank? %>
+          <p> Location </p>
+        <% else %>
+          <p class="form-error">
+            <i>Location
+            <%= @stop.errors[:location].first %></i>
+          </p>
+        <% end %>
+        <%= f.text_field :location, :autofocus => true %>
+
+        <% if @stop.errors[:content].blank? %>
+          <p> Content </p>
+        <% else %>
+          <p class="form-error">
+            <i>Content
+            <%= @stop.errors[:content].first %></i>
+          </p>
+        <% end %>
+        <%= f.text_field :content, :autofocus => true %>
+        <br/>
+        <br/>
+        <br/>
+      </div>
+
+      <div class='center'>
+        <%= f.submit "Create", class: 'btn-black' %>
+      </div>
+    <% end %>
+  </div>
+</div>

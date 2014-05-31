@@ -8,23 +8,23 @@
 
 <div class='form-box'>
   <div class='form-content'>
-    <h2 class='center'>New Blog</h2>
-    <%= form_for(@blog, url: blogs_path,
+    <h2 class='center'>New Journey</h2>
+    <%= form_for(@journey, url: journeys_path,
       html: { method: :post, :multipart => true }) do |f| %>
 
       <br/>
       <br/>
 
       <div id='sign-in-form-content'>
-        <% if @blog.errors[:name].blank? %>
+        <% if @journey.errors[:title].blank? %>
           <p> Title </p>
         <% else %>
           <p class="form-error">
             <i>Title
-            <%= @blog.errors[:name].first %></i>
+            <%= @journey.errors[:title].first %></i>
           </p>
         <% end %>
-        <%= f.text_field :name, :autofocus => true %>
+        <%= f.text_field :title, :autofocus => true %>
 
         <br/>
         <br/>
