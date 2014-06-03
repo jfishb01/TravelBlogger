@@ -1,1 +1,3 @@
 1. Fix settings page
+3. Enable dropdown for google maps location search
+4. Make location search box draggable/movable

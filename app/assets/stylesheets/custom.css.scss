@@ -6,6 +6,8 @@
 $grayMediumLight: #969696;
 $offWhite: #e9ecec;
 $offBlack: #0e0e0e;
+$deepSkyBlue: #0088cc;
+$darkGray: #1E1E1E;
 
 @mixin box_sizing {
   -moz-box-sizing: border-box;
@@ -22,6 +24,80 @@ $offBlack: #0e0e0e;
   height: 94%;
   label { width: auto; display:inline; }
   img { max-width: none; }
+}
+
+.controls {
+  margin-top: 16px;
+  border: 1px solid transparent;
+  border-radius: 2px 0 0 2px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  height: 32px;
+  outline: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+#target {
+  width: 345px;
+}
+
+#journey-title {
+  background: $darkGray;
+  padding-left: 10px;
+  padding-right: 10px;
+  border: 3px $offBlack solid;
+  display: inline;
+  color: $offWhite;
+  top: -20px;
+  position: relative;
+  border-radius: 7px;
+}
+
+.hint {
+  font-size: 12px;
+  color: $grayMediumLight;
+}
+
+#new_stop-link {
+  display: inline;
+  font-size: 18px;
+  padding-left: 2px;
+  color: $offWhite;
+  position: relative;
+  &:hover {
+    text-decoration: none;
+    // color: $grayMediumLight;
+    // cursor: pointer;
+  }
+}
+
+#new_stop-link_group {
+  top: 50px;
+  left: 88px;
+  position: absolute;
+  border: 3px $offBlack solid;
+  background: $darkGray;
+  border-radius: 12px;
+}
+
+#pac-input {
+  background-color: #fff;
+  margin-top: 6px;
+  margin-bottom: 6px;
+  margin-left: 4px;
+  margin-right: 4px;
+  width: 250px;
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 300;
+  text-overflow: ellipsis;
+  border-color: $offBlack;
+  border-width: 1px;
+  position: relative;
+}
+
+#pac-input:focus {
+  border-color: #4d90fe;
 }
 
 
@@ -185,7 +261,7 @@ footer {
   border-radius: 12px;
   padding: 10px;
   font-size: 28px;
-  color: #0088cc;
+  color: $deepSkyBlue;
   &:hover {
     text-decoration: none;
     background: #5c5c5c;
@@ -257,7 +333,7 @@ footer {
   visibility: hidden;
   right: 0px;
   width: 250px;
-  background: #1E1E1E;
+  background: $darkGray;
   position: fixed;
   /*position: relative;*/
   height: 75%;
@@ -277,12 +353,12 @@ footer {
   right: 10px;
   padding-left: 4px;
   padding-top: 55px;
-  background: #1E1E1E;
+  background: $darkGray;
   border-left: 4px;
   border-top: 4px;
   border-bottom: 4px;
   border-style: solid;
-  border-color: #0088cc;
+  border-color: $deepSkyBlue;
   width: 270px;
   height: 40px;
   /*top: 200px;*/
@@ -290,7 +366,7 @@ footer {
   p {
     margin-right: 250px;
     font-size: 20px;
-    color: #0088cc;
+    color: $deepSkyBlue;
     text-shadow:
       -1px -1px 0 #000,
       1px -1px 0 #000,
@@ -311,20 +387,20 @@ footer {
   right: 0px;
   padding-left: 4px;
   padding-top: 55px;
-  background: #1E1E1E;
+  background: $darkGray;
   border-left: 4px;
   border-top: 4px;
   border-bottom: 4px;
   border-right: 0px;
   border-style: solid;
-  border-color: #0088cc;
+  border-color: $deepSkyBlue;
   width: 20px;
   height: 40px;
   /*top: 200px;*/
   top: 37.5%;
   p {
     font-size: 20px;
-    color: #0088cc;
+    color: $deepSkyBlue;
     text-shadow:
       -1px -1px 0 #000,
       1px -1px 0 #000,
@@ -367,7 +443,7 @@ footer {
 
 #upload_avatar-link {
   cursor: pointer;
-  color: #0088cc;
+  color: $deepSkyBlue;
   margin-top: 15px;
   margin-left: 15px;
   margin-right: 15px;
@@ -431,7 +507,7 @@ footer {
     color: $grayMediumLight;
     cursor: pointer;
 
-    #create_new-img {
+    #create_new_journey-img {
       -webkit-filter: opacity(60%);
     }
     #new_journey-btn {
@@ -453,7 +529,7 @@ footer {
   }
 }
 
-#create_new-img {
+#create_new_journey-img {
   position: absolute;
   left: 10px;
 }
@@ -473,7 +549,7 @@ footer {
 }
 
 .avatar-link {
-  color: #0088cc;
+  color: $deepSkyBlue;
   position: absolute;
   text-align: center;
   &:hover {
@@ -493,7 +569,7 @@ footer {
   font-size: 28px;
   &:hover {
     text-decoration: none;
-    color: #0088cc;
+    color: $deepSkyBlue;
   }
 }
 

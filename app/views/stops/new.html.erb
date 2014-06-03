@@ -20,27 +20,39 @@
           <p> Title </p>
         <% else %>
           <p class="form-error">
-            <i>Title
+            <i> Title
             <%= @stop.errors[:title].first %></i>
           </p>
         <% end %>
         <%= f.text_field :title, :autofocus => true %>
 
-        <% if @stop.errors[:location].blank? %>
+        <% if @stop.errors[:location].blank? &&
+          @stop.errors[:latitude].blank? &&
+          @stop.errors[:longitude].blank? %>
           <p> Location </p>
-        <% else %>
+          <%= f.text_field :location, :autofocus => true %>
+        <% elsif !@stop.errors[:location].blank? %>
           <p class="form-error">
-            <i>Location
+            <i> Location
             <%= @stop.errors[:location].first %></i>
           </p>
+          <%= f.text_field :location, :autofocus => true %>
+        <% else %>
+          <p class="form-error">
+            <i> Location could not be found </i>
+          </p>
+          <%= f.text_field :location, :autofocus => true %>
+          <p class='hint'>
+              Make sure your search is spelled correctly<br/>
+              or try adding a city, state, or zip code
+          </p>
         <% end %>
-        <%= f.text_field :location, :autofocus => true %>
 
         <% if @stop.errors[:content].blank? %>
           <p> Content </p>
         <% else %>
           <p class="form-error">
-            <i>Content
+            <i> Content
             <%= @stop.errors[:content].first %></i>
           </p>
         <% end %>

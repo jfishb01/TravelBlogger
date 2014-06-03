@@ -28,7 +28,7 @@
     });
 
     $('#new_journey-link').click(function (e) {
-      window.location.href='journeys/new';
+      window.location.href='/journeys/new';
     });
   });
 </script>
@@ -74,7 +74,7 @@
         <% end %>
 
         <div id='new_journey-link'>
-          <%= image_tag "circle_plus.png", alt: "+", height: "24", width: "24", id: 'create_new-img' %>
+          <%= image_tag "circle_plus.png", alt: "+", height: "24", width: "24", id: 'create_new_journey-img' %>
           <%= link_to "New Journey", new_journey_path, id: "new_journey-btn" %>
         </div>
         <%= image_tag "journey_name_border.png", alt: "+", height: "4",
