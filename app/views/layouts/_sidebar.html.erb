@@ -1,8 +1,21 @@
 <script>
   $(document).ready( function() {
-    $( "#sidebar-tab" ).hide( "slide", { direction: "right" }, 250 );
-    $( "#sidebar" ).hide( "slide", { direction: "right" }, 250 );
+    console.log($.cookie('profile_tab'));
+    if($.cookie('profile_tab')) {
+      $( "#sidebar-tab" ).css("visibility", "visible");
+      $( "#sidebar" ).css("visibility", "visible");
+    } else {
+      $( "#sidebar-tab" ).hide( "slide", { direction: "right" }, 250 );
+      $( "#sidebar" ).hide( "slide", { direction: "right" }, 250 );
+    }
     $(".profile-toggle").click(function(e){
+      if($.cookie('profile_tab')) {
+        $.removeCookie('profile_tab', { path: '/' });
+        console.log($.cookie('profile_tab'));
+      } else {
+        $.cookie('profile_tab', 'visible', { expires: 365, path: '/' });
+        console.log($.cookie('profile_tab'));
+      }
       $( "#sidebar-tab" ).css("visibility", "visible");
       $( "#sidebar" ).css("visibility", "visible");
       $( "#sidebar-tab" ).toggle( "slide", { direction: "right" }, 250 );

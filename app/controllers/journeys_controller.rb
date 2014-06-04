@@ -17,13 +17,10 @@ class JourneysController < ApplicationController
   def show
     @journey = Journey.find(params[:id])
 
-    # @json = @journey.stops.each do |stop|
-
-    # end
     @hash = Gmaps4rails.build_markers(@journey.stops) do |stop, marker|
       marker.lat stop.latitude.to_s
       marker.lng stop.longitude.to_s
-      marker.infowindow stop.title
+      marker.infowindow "#{stop.title} <br/> See content"
     end
 
   end

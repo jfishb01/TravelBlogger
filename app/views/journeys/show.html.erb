@@ -2,7 +2,7 @@
 <script src='//google-maps-utility-library-v3.googlecode.com/svn/tags/markerclustererplus/2.0.14/src/markerclusterer_packed.js' type='text/javascript'></script>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
 
-<div id="map"></div>
+<div id="map" class="gmaps4rails_map"></div>
 <div class="center">
   <h1 id='journey-title'> <%= @journey.title %> </h1>
 </div>
@@ -16,6 +16,13 @@
 <script type="text/javascript" charset='utf-8'>
 
 function initialize() {
+
+$(document).on('map:ready', function () {
+  $.each(Gmaps.map.markers, function (index, m) {
+    var marker = m.serviceObject;
+    m.infowindow.open(marker.map, marker);
+  })
+});
 
   //Custom map
   var mapStyle = [
@@ -106,6 +113,8 @@ map.buildMap({
     internal: {id: 'map'},
     provider: {
       zoom:      2,
+      minZoom:   2,
+      // maxZoom:   16,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
       styles:    mapStyle
     }
@@ -114,6 +123,9 @@ map.buildMap({
     markers = map.addMarkers(<%=raw @hash.to_json %>);
     map.bounds.extendWith(markers);
     map.fitMapToBounds();
+    if(markers.length === 1) {
+      map.getMap().setZoom(15);
+    }
   });
 
   // Create the search box and link it to the UI element.
@@ -124,39 +136,63 @@ map.buildMap({
   var searchBox = new google.maps.places.SearchBox(
     /** @type {HTMLInputElement} */(input));
 
-  search_markers = [];
+  var search_markers = [];
+  var infowindows = [];
 
   // Listen for the event fired when the user selects an item from the
   // pick list. Retrieve the matching places for that item.
   google.maps.event.addListener(searchBox, 'places_changed', function() {
     var places = searchBox.getPlaces();
 
-    if(search_markers.length !== 0) {
-      map.removeMarkers(search_markers);
-    }
+    $.each(infowindows, function (index, infowindow) {
+      infowindow.close();
+    });
+
+    map.removeMarkers(search_markers);
 
     search_markers = [];
+    infowindow = [];
+
     // For each place, get the icon, place name, and location.
     for (var i = 0, place; place = places[i]; i++) {
 
-      path = window.location.pathname + '/stops/new';
-      search_marker = '{ "lat": "' + place.geometry.location.lat()
-        + '", "lng": "' + place.geometry.location.lng()
-        + '", "infowindow": "<a href=' + path + '>Create stop here?</a>" }';
+      var path = window.location.pathname + '/stops/new?loc='
+        + place.name + '&lat=' + place.geometry.location.lat()
+        + '&lng=' + place.geometry.location.lng();
+      var infowindow_content = "<div class='infowindow'><a href=" +
+        path +">Create stop here?</a>" +
+        "<p>(Click and drag if incorrectly placed" +
+        "<br/> or enter a new search)</p></div>"
 
-      search_marker = map.addMarker(jQuery.parseJSON( search_marker ), {draggable: true});
+      var search_marker = new google.maps.Marker({
+        lat: place.geometry.location.lat(),
+        lng: place.geometry.location.lng(),
+        infowindow: infowindow_content,
+        map: map.getMap()
+    });
 
-      search_marker.infowindow.open(map, search_marker.serviceObject);
+      infowindows.push(new google.maps.InfoWindow({
+        content: "<div id='id_" + place.name + "' class='infowindow'><a href="
+          + path + ">Create stop here?</a><p>(Click and drag if "
+          + "incorrectly placed <br/> or enter a new search)</p></div>",
+        pixelOffset: new google.maps.Size(0, -40)
+      }));
+
+      var search_marker = map.addMarker(search_marker, {draggable: true});
+
+      infowindows[i].setPosition(place.geometry.location);
+      infowindows[i].open(map.getMap());
 
       search_markers.push(search_marker);
     }
 
-    // if(markers.length === 0 && search_markers.length === 1) {
-    //   map.setZoom(12);
-    // } else {
-      map.bounds.extendWith(search_markers);
-      map.fitMapToBounds();
-    // }
+      if(places.length === 1) {
+        map.getMap().setCenter(places[0].geometry.location);
+        map.getMap().setZoom(16);
+      } else {
+        map.bounds.extendWith(search_markers);
+        map.fitMapToBounds();
+      }
   });
 
   // Bias the SearchBox results towards places that are within the bounds of

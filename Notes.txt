@@ -1,3 +1,7 @@
 1. Fix settings page
-3. Enable dropdown for google maps location search
-4. Make location search box draggable/movable
+2. Make location search box draggable/movable
+3. Add cancel links to forms
+4. Stop using Gmaps4rails (use just normal gmaps)
+6. Add shadows to markers
+7. Usability question: is it better to allow user to open two of the same infowindow simultaneously or to prevent user from being able to open infowindow at all by clicking marker?
+8. use cookies.signed for sending location, latitude, and longitude?

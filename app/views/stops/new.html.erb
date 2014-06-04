@@ -16,6 +16,30 @@
       <br/>
 
       <div id='sign-in-form-content'>
+
+        <% if !@stop.errors[:location].blank? %>
+          <p class="form-error">
+            <i> Location
+            <%= @stop.errors[:location].first %></i>
+          </p>
+        <% end %>
+        <% if !@stop.errors[:latitude].blank? %>
+          <p class="form-error">
+            <i> Latitude
+            <%= @stop.errors[:latitude].first %></i>
+          </p>
+        <% end %>
+        <% if !@stop.errors[:longitude].blank? %>
+          <p class="form-error">
+            <i> Longitude
+            <%= @stop.errors[:longitude].first %></i>
+          </p>
+        <% end %>
+
+        <%= f.hidden_field :location, :value => params[:loc] %>
+        <%= f.hidden_field :latitude, :value => params[:lat] %>
+        <%= f.hidden_field :longitude, :value => params[:lng] %>
+
         <% if @stop.errors[:title].blank? %>
           <p> Title </p>
         <% else %>
@@ -26,37 +50,6 @@
         <% end %>
         <%= f.text_field :title, :autofocus => true %>
 
-        <% if @stop.errors[:location].blank? &&
-          @stop.errors[:latitude].blank? &&
-          @stop.errors[:longitude].blank? %>
-          <p> Location </p>
-          <%= f.text_field :location, :autofocus => true %>
-        <% elsif !@stop.errors[:location].blank? %>
-          <p class="form-error">
-            <i> Location
-            <%= @stop.errors[:location].first %></i>
-          </p>
-          <%= f.text_field :location, :autofocus => true %>
-        <% else %>
-          <p class="form-error">
-            <i> Location could not be found </i>
-          </p>
-          <%= f.text_field :location, :autofocus => true %>
-          <p class='hint'>
-              Make sure your search is spelled correctly<br/>
-              or try adding a city, state, or zip code
-          </p>
-        <% end %>
-
-        <% if @stop.errors[:content].blank? %>
-          <p> Content </p>
-        <% else %>
-          <p class="form-error">
-            <i> Content
-            <%= @stop.errors[:content].first %></i>
-          </p>
-        <% end %>
-        <%= f.text_field :content, :autofocus => true %>
         <br/>
         <br/>
         <br/>
