@@ -6,7 +6,12 @@
 
 <div class='form-box'>
   <div class='form-content'>
-    <h2 class='center'>Sign up</h2>
+    <div class="form-hdr">
+      <div class='cancel-btn'>
+        <p onclick="history.back()"> x </p>
+      </div>
+      <h2 class='center'>Sign up</h2>
+    </div>
     <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
 
       <br/>
@@ -85,7 +90,7 @@
           <br/>
           <br/>
 
-          <div class='center'><%= f.submit "Sign up", class: 'btn-black' %></div>
+          <div class='center'><%= f.submit "Sign up", class: 'btn-black', onclick: "localStorage.setItem('profile_tab', 'visible');" %></div>
         <% end %>
         <br/>
         <div class="center">

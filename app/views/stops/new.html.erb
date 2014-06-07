@@ -1,6 +1,13 @@
 <script>
   $(document).ready(function() {
-    $('body').addClass('map-bg')
+    $('body').addClass('map-bg');
+    var loc = localStorage.getItem('loc');
+    if(loc) {
+      $('#location-input').hide();
+      $('#loc-hidden').val(loc);
+    }
+    $('#lat-hidden').val(localStorage.getItem('lat'));
+    $('#lng-hidden').val(localStorage.getItem('lng'));
   });
 </script>
 
@@ -8,7 +15,12 @@
 
 <div class='form-box'>
   <div class='form-content'>
-    <h2 class='center'>New Stop</h2>
+    <div class="form-hdr">
+      <div class='cancel-btn'>
+        <p onclick="history.back()"> x </p>
+      </div>
+      <h2 class='center'>New Stop</h2>
+    </div>
     <%= form_for(@stop, url: journey_stops_path,
       html: { method: :post, :multipart => true }) do |f| %>
 
@@ -17,11 +29,13 @@
 
       <div id='sign-in-form-content'>
 
-        <% if !@stop.errors[:location].blank? %>
-          <p class="form-error">
-            <i> Location
-            <%= @stop.errors[:location].first %></i>
-          </p>
+        <% if !params[:locatiion].blank? %>
+          <% if !@stop.errors[:location].blank? %>
+            <p class="form-error">
+              <i> Location
+              <%= @stop.errors[:location].first %></i>
+            </p>
+          <% end %>
         <% end %>
         <% if !@stop.errors[:latitude].blank? %>
           <p class="form-error">
@@ -36,10 +50,6 @@
           </p>
         <% end %>
 
-        <%= f.hidden_field :location, :value => params[:loc] %>
-        <%= f.hidden_field :latitude, :value => params[:lat] %>
-        <%= f.hidden_field :longitude, :value => params[:lng] %>
-
         <% if @stop.errors[:title].blank? %>
           <p> Title </p>
         <% else %>
@@ -49,6 +59,24 @@
           </p>
         <% end %>
         <%= f.text_field :title, :autofocus => true %>
+
+          <%= f.hidden_field :location, id: "loc-hidden" %>
+          <div id='location-input'>
+            <% if @stop.errors[:location].blank? %>
+              <p class="location-input"> Location </p>
+            <% else %>
+              <p class="form-error location-input">
+                <i> Location
+                <%= @stop.errors[:location].first %></i>
+              </p>
+            <% end %>
+            <%= f.text_field :location, :autofocus => true, class: "location-input" %>
+          </div>
+
+          <%= f.cktext_area :content, :value => 'hey', :cols => 40, :ckeditor => {:language => 'us', :uiColor => '#AADC6E', :toolbar => 'mini'} %>
+
+        <%= f.hidden_field :latitude, id: "lat-hidden" %>
+        <%= f.hidden_field :longitude, id: "lng-hidden" %>
 
         <br/>
         <br/>

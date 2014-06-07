@@ -15,6 +15,7 @@ gem 'devise', '3.0'
 # gem 'spinjs-rails', '~> 1.3'
 gem 'geocoder', '~> 1.2.1'
 gem 'gmaps4rails', '~> 2.1.2'
+gem 'ckeditor', '~> 4.0.11'
 
 group :development, :test do
   gem 'rspec-rails', '2.13.1'

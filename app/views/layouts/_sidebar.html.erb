@@ -1,7 +1,6 @@
 <script>
   $(document).ready( function() {
-    console.log($.cookie('profile_tab'));
-    if($.cookie('profile_tab')) {
+    if(localStorage.getItem('profile_tab') === 'visible') {
       $( "#sidebar-tab" ).css("visibility", "visible");
       $( "#sidebar" ).css("visibility", "visible");
     } else {
@@ -9,12 +8,12 @@
       $( "#sidebar" ).hide( "slide", { direction: "right" }, 250 );
     }
     $(".profile-toggle").click(function(e){
-      if($.cookie('profile_tab')) {
-        $.removeCookie('profile_tab', { path: '/' });
-        console.log($.cookie('profile_tab'));
+      if(localStorage.getItem('profile_tab') === 'visible') {
+        localStorage.setItem('profile_tab','hidden');
+        console.log(localStorage.getItem('profile_tab'));
       } else {
-        $.cookie('profile_tab', 'visible', { expires: 365, path: '/' });
-        console.log($.cookie('profile_tab'));
+        localStorage.setItem('profile_tab', 'visible');
+        console.log(localStorage.getItem('profile_tab'));
       }
       $( "#sidebar-tab" ).css("visibility", "visible");
       $( "#sidebar" ).css("visibility", "visible");
@@ -47,8 +46,8 @@
 </script>
 
 <% if(user_signed_in?) %>
-  <div id="sidebar-toggle" class='profile-toggle'><p>Profile</p></div>
-  <div id="sidebar-tab" class='profile-toggle'><p>Profile</p></div>
+  <div id="sidebar-toggle" class='profile-toggle'><p>Menu</p></div>
+  <div id="sidebar-tab" class='profile-toggle'><p>Hide</p></div>
   <div id="sidebar">
     <p class="sidebar-nav">
       <br/>

@@ -1,7 +1,10 @@
-1. Fix settings page
-2. Make location search box draggable/movable
-3. Add cancel links to forms
-4. Stop using Gmaps4rails (use just normal gmaps)
-6. Add shadows to markers
-7. Usability question: is it better to allow user to open two of the same infowindow simultaneously or to prevent user from being able to open infowindow at all by clicking marker?
-8. use cookies.signed for sending location, latitude, and longitude?
+8. Create stop page
+10. Refresh page after profile upload
+11. On create stop form, leave gmaps up as background
+12. Should I use google maps directions to stay on road or do as the crow flies? Consider hiking, flying, alternate routes, etc. Should I use geodesic polylines?
+13. Format "forgot your password" page
+14. Format "didn't receive confirmation instructions" page
+15. Go through devise forms and make sure they are all properly formatted.
+19. Change form z-axis to appear over profile
+20. Consider changing validations in stop.rb
+21. Fix cancel link for incorrect form filling out (back doesn't work for multiple failed entries)

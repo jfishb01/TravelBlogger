@@ -10,19 +10,19 @@
   <%= image_tag "circle_plus.png", alt: "+", height: "24", width: "24", id: 'create_new_stop-img' %>
   <p id='new_stop-link'> New Stop </p>
   <br/>
-  <input id="pac-input" type="text" placeholder="Search Location">
+  <input id="pac-input" type="text" placeholder="Enter Location To Create New Stop">
+  <br/>
+  <input id="marker-checkbox" type="checkbox" value="checked"><p id="marker-checkbox-text">
+    Create marker on map click</p></input>
 </div>
 
 <script type="text/javascript" charset='utf-8'>
 
 function initialize() {
 
-$(document).on('map:ready', function () {
-  $.each(Gmaps.map.markers, function (index, m) {
-    var marker = m.serviceObject;
-    m.infowindow.open(marker.map, marker);
-  })
-});
+  $(function() {
+    $( "#new_stop-link_group" ).draggable();
+  });
 
   //Custom map
   var mapStyle = [
@@ -108,25 +108,87 @@ $(document).on('map:ready', function () {
     }
   ];
 
-var map = Gmaps.build('Google');
-map.buildMap({
-    internal: {id: 'map'},
-    provider: {
-      zoom:      2,
-      minZoom:   2,
-      // maxZoom:   16,
-      mapTypeId: google.maps.MapTypeId.ROADMAP,
-      styles:    mapStyle
-    }
-  },
-  function(){
-    markers = map.addMarkers(<%=raw @hash.to_json %>);
-    map.bounds.extendWith(markers);
-    map.fitMapToBounds();
-    if(markers.length === 1) {
-      map.getMap().setZoom(15);
-    }
+  // Build the map
+  var map = Gmaps.build('Google');
+  map.buildMap({
+      internal: {id: 'map'},
+      provider: {
+        zoom:      2,
+        minZoom:   2,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        styles:    mapStyle
+      }
+    },
+    function(){}
+  );
+
+  var markers_hash = <%=raw @markers.to_json %>
+  var markers = [];
+  var bounds = new google.maps.LatLngBounds();
+
+  // Add stops to map
+  $.each(markers_hash, function (index, data) {
+    var marker = new google.maps.Marker({
+        position: new google.maps.LatLng(data.lat, data.lng),
+        map: map.getMap(),
+        title: data.marker_title
+    });
+
+    bounds.extend(marker.position);
+    markers.push(marker);
+
+    // Add infowindow and its event handler to the marker
+    var infowindow = new google.maps.InfoWindow({
+      content: data.infowindow
+    });
+
+    google.maps.event.addListener(marker, 'click', function() {
+      infowindow.open(map.getMap(), marker);
+      map.getMap().setCenter(marker.getPosition());
+    });
   });
+
+  // Set appropriate zooming
+  if(markers.length === 0) {
+    map.getMap().setZoom(2);
+  } else if(markers.length === 1) {
+    map.getMap().setCenter(markers[0].position);
+    map.getMap().setZoom(15);
+  } else {
+    map.getMap().fitBounds(bounds);
+  }
+
+  // Format polyline
+  var lineSymbol = {
+    path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+    fillColor: '#0088cc',
+    fillOpacity: 1.0,
+    strokeColor: '#1E1E1E',
+    strokeOpacity: 1.0
+  };
+
+  markers = <%=raw @markers.to_json %>
+
+  // Draw polyine route using stops
+  for(var i = 0; i < (markers.length-1); i++) {
+  var polyline_coords = [];
+    polyline_coords.push(new google.maps.LatLng(markers[i].lat,
+      markers[i].lng));
+    polyline_coords.push(new google.maps.LatLng(markers[i+1].lat,
+      markers[i+1].lng));
+    var polyline = new google.maps.Polyline({
+      path: polyline_coords,
+      icons: [{
+        icon: lineSymbol,
+        repeat: '300px'
+      }],
+      geodesic: true,
+      strokeColor: '#0088cc',
+      strokeOpacity: 0.7,
+      strokeWeight: 6,
+      map: map.getMap()
+    });
+  };
 
   // Create the search box and link it to the UI element.
   var input = /** @type {HTMLInputElement} */(
@@ -137,18 +199,18 @@ map.buildMap({
     /** @type {HTMLInputElement} */(input));
 
   var search_markers = [];
-  var infowindows = [];
+
+  bounds = new google.maps.LatLngBounds();
 
   // Listen for the event fired when the user selects an item from the
   // pick list. Retrieve the matching places for that item.
   google.maps.event.addListener(searchBox, 'places_changed', function() {
     var places = searchBox.getPlaces();
 
-    $.each(infowindows, function (index, infowindow) {
-      infowindow.close();
+    // Remove previous markers from map
+    $.each(search_markers, function (index, marker) {
+      marker.setMap(null);
     });
-
-    map.removeMarkers(search_markers);
 
     search_markers = [];
     infowindow = [];
@@ -156,44 +218,113 @@ map.buildMap({
     // For each place, get the icon, place name, and location.
     for (var i = 0, place; place = places[i]; i++) {
 
-      var path = window.location.pathname + '/stops/new?loc='
-        + place.name + '&lat=' + place.geometry.location.lat()
-        + '&lng=' + place.geometry.location.lng();
-      var infowindow_content = "<div class='infowindow'><a href=" +
-        path +">Create stop here?</a>" +
-        "<p>(Click and drag if incorrectly placed" +
-        "<br/> or enter a new search)</p></div>"
+      // Create path for new stop form
+      var path = window.location.pathname + '/stops/new';
 
+      var local_storage = 'localStorage.setItem("loc", "' + place.name + '"); '
+      + 'localStorage.setItem("lat", ' + place.geometry.location.lat() + '); '
+      + 'localStorage.setItem("lng", ' + place.geometry.location.lng() + ');'
+
+      var infowindow_content = "<div class='infowindow'><a href=" + path
+        + " onclick=\'" + local_storage + "\'>"
+        + "Create stop here?</a><p>(Enter a new search if incorrectly placed)"
+        + "</p></div>";
+
+      var infowindow = new google.maps.InfoWindow({
+        content: infowindow_content
+      });
+
+      // Create marker using the search criteria
       var search_marker = new google.maps.Marker({
-        lat: place.geometry.location.lat(),
-        lng: place.geometry.location.lng(),
-        infowindow: infowindow_content,
+        position: new google.maps.LatLng(place.geometry.location.lat(),
+          place.geometry.location.lng()),
         map: map.getMap()
-    });
+      });
 
-      infowindows.push(new google.maps.InfoWindow({
-        content: "<div id='id_" + place.name + "' class='infowindow'><a href="
-          + path + ">Create stop here?</a><p>(Click and drag if "
-          + "incorrectly placed <br/> or enter a new search)</p></div>",
-        pixelOffset: new google.maps.Size(0, -40)
-      }));
+      // Attach the infowindow to the marker and create an event handler
+      infowindow.open(map.getMap(), search_marker);
 
-      var search_marker = map.addMarker(search_marker, {draggable: true});
-
-      infowindows[i].setPosition(place.geometry.location);
-      infowindows[i].open(map.getMap());
+      google.maps.event.addListener(search_marker, 'click', function() {
+        infowindow.open(map.getMap(), search_marker);
+        map.getMap().setCenter(search_marker.getPosition());
+      });
 
       search_markers.push(search_marker);
+
+      // Format bounds for search criteria
+      bounds.extend(search_marker.position);
     }
 
-      if(places.length === 1) {
-        map.getMap().setCenter(places[0].geometry.location);
-        map.getMap().setZoom(16);
-      } else {
-        map.bounds.extendWith(search_markers);
-        map.fitMapToBounds();
-      }
+    // Set zoom and centering as appropriate for search criteria
+    if(places.length === 0) {
+      map.getMap().setZoom(2);
+    }
+    else if(places.length === 1) {
+      map.getMap().setCenter(places[0].geometry.location);
+      map.getMap().setZoom(16);
+    } else {
+      map.getMap().fitBounds(bounds);
+    }
   });
+
+  // add a click event handler to the map object to place markers on click
+  google.maps.event.addListener(map.getMap(), "click", function(event)
+  {
+    // place a marker
+    if($('#marker-checkbox').is(':checked')) {
+      placeMarker(event.latLng);
+    }
+  });
+
+  function placeMarker(location) {
+      // first remove all markers if there are any
+      deleteOverlays();
+
+      // Create the marker
+      var search_marker = new google.maps.Marker({
+          position: location,
+          map: map.getMap()
+      });
+
+      // Build content for the infowindow
+      var path = window.location.pathname + '/stops/new';
+
+      var local_storage = 'localStorage.removeItem("loc"); '
+      + 'localStorage.setItem("lat", ' + location.lat() + '); '
+      + 'localStorage.setItem("lng", ' + location.lng() + ');'
+
+      var infowindow_content = "<div class='infowindow'><a href=" + path
+        + " onclick=\'" + local_storage + "\'>"
+        + "Create stop here?</a><p>Lat: " + location.lat()
+        + "<br/>Lng: " + location.lng() + "</p></div>";
+
+      var infowindow = new google.maps.InfoWindow({
+        content: infowindow_content
+      });
+
+      // Open infowindow and assign it to the marker
+      infowindow.open(map.getMap(), search_marker);
+
+      google.maps.event.addListener(search_marker, 'click', function() {
+        infowindow.open(map.getMap(), search_marker);
+        map.getMap().setCenter(search_marker.getPosition());
+      });
+
+      // add marker in markers array
+      search_markers.push(search_marker);
+
+      map.getMap().setCenter(location);
+      // map.getMap().setZoom(15);
+  }
+
+  // Deletes all markers in the array by removing references to them
+  function deleteOverlays() {
+    for (i in search_markers) {
+        search_markers[i].setMap(null);
+    }
+    search_markers.length = 0;
+  }
+
 
   // Bias the SearchBox results towards places that are within the bounds of
   // the current map's viewport.
@@ -204,8 +335,6 @@ map.buildMap({
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
-
-
 
 
 </script>

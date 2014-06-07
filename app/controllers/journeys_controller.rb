@@ -23,6 +23,14 @@ class JourneysController < ApplicationController
       marker.infowindow "#{stop.title} <br/> See content"
     end
 
+    @markers = []
+
+    @journey.stops.each do |stop|
+      marker_hash = { lat: stop.latitude, lng: stop.longitude,
+        infowindow: "#{stop.title} <br/> See content", marker_title: stop.title }
+      @markers.push(marker_hash)
+    end
+
   end
 
 #   def gmaps4rails_marker_picture

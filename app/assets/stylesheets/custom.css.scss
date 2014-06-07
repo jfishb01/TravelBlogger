@@ -15,6 +15,49 @@ $darkGray: #1E1E1E;
   box-sizing: border-box;
 }
 
+#marker-checkbox {
+  margin-left: 10px;
+  margin-bottom: 6px;
+  color: $offWhite !important;
+}
+
+#marker-checkbox-text {
+  color: $offWhite !important;
+  display: inline;
+  margin-left: 4px;
+}
+
+.cancel-link {
+  &:hover {
+    text-decoration: none;
+  }
+  p {
+    width: 100% !important;
+    color: $deepSkyBlue;
+    &:hover {
+      cursor: pointer;
+      color: #005d8b;
+    }
+  }
+}
+
+.form-hdr {
+  position: relative;
+
+}
+
+.cancel-btn {
+  color: gray;
+  font-size: 32px;
+  right: 0px;
+  top: 0px;
+  position: absolute;
+  &:hover {
+    cursor: pointer;
+    color: #a8a8a8;
+  }
+}
+
 .infowindow {
   font-size: 16px;
   p {
@@ -71,6 +114,7 @@ $darkGray: #1E1E1E;
   padding-left: 2px;
   color: $offWhite;
   position: relative;
+  margin-top: 8px;
   &:hover {
     text-decoration: none;
     // color: $grayMediumLight;
@@ -79,6 +123,9 @@ $darkGray: #1E1E1E;
 }
 
 #new_stop-link_group {
+  &:hover {
+    cursor: all-scroll;
+  }
   top: 50px;
   left: 88px;
   position: absolute;
@@ -367,7 +414,7 @@ footer {
   border-style: solid;
   border-color: $deepSkyBlue;
   width: 270px;
-  height: 40px;
+  height: 50px;
   /*top: 200px;*/
   top: 37.5%;
   p {
@@ -402,7 +449,7 @@ footer {
   border-style: solid;
   border-color: $deepSkyBlue;
   width: 20px;
-  height: 40px;
+  height: 42px;
   /*top: 200px;*/
   top: 37.5%;
   p {
@@ -632,3 +679,4 @@ footer {
 .form-error {
   color: #b94a48;
 }
+

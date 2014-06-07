@@ -8,7 +8,12 @@
 
 <div class='form-box'>
   <div class='form-content'>
-    <h2 class='center'>New Journey</h2>
+    <div class="form-hdr">
+      <div class='cancel-btn'>
+        <p onclick="history.back()"> x </p>
+      </div>
+      <h2 class='center'>New Journey</h2>
+    </div>
     <%= form_for(@journey, url: journeys_path,
       html: { method: :post, :multipart => true }) do |f| %>
 

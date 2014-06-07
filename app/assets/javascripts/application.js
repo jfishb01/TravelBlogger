@@ -17,6 +17,8 @@
 //= require jquery.cookie
 //= require underscore
 //= require gmaps/google
+//= require ckeditor/override
+//= require ckeditor/init
 //= require_tree .
 
 

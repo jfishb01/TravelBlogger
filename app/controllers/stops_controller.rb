@@ -22,7 +22,6 @@ class StopsController < ApplicationController
   private
 
     def stop_params
-      params.require(:stop).permit(:location, :title, :latitude, :longitude, :content)
+      params.require(:stop).permit(:title, :location, :latitude, :longitude, :content)
     end
-
 end
