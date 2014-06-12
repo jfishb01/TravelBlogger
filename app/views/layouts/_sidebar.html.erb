@@ -10,10 +10,8 @@
     $(".profile-toggle").click(function(e){
       if(localStorage.getItem('profile_tab') === 'visible') {
         localStorage.setItem('profile_tab','hidden');
-        console.log(localStorage.getItem('profile_tab'));
       } else {
         localStorage.setItem('profile_tab', 'visible');
-        console.log(localStorage.getItem('profile_tab'));
       }
       $( "#sidebar-tab" ).css("visibility", "visible");
       $( "#sidebar" ).css("visibility", "visible");

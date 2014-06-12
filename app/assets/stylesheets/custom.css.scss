@@ -15,6 +15,9 @@ $darkGray: #1E1E1E;
   box-sizing: border-box;
 }
 
+.stop_photo {
+  cursor: pointer;
+}
 
 #cke_stop_content {
   margin-left: auto;
@@ -532,6 +535,10 @@ footer {
     text-decoration: none;
     color: #005d8b;
   }
+}
+
+#upload_photo-link {
+  cursor: pointer;
 }
 
 #edit_avatar-link {

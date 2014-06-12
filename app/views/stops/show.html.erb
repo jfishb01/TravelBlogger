@@ -1,6 +1,16 @@
 <script>
   $(document).ready(function() {
-    $('body').addClass('map-bg')
+    $('body').addClass('map-bg');
+
+    $("#upload_photo-link").click(function (e) {
+      $("#stop_images").trigger('click');
+    });
+
+    $("#stop_images").on('change', function (e) {
+      $("#upload_photos").submit();
+    });
+
+    $("a[rel^='prettyPhoto']").prettyPhoto();
   });
 </script>
 
@@ -23,10 +33,16 @@
   <div class='center'>
     <h1> <%= @stop.title %> </h1>
     <h2> <%= "(#{@stop.location})" %> </h2>
-    <%= form_for current_user, :url => registration_path(current_user),
-      :html => { :method => :put } do |f| %>
-      <%= f.file_field :avatar, style: "display:none" %>
-      <%= image_tag current_user.avatar.url(:thumb), id: 'profile_pic' %>
+    <% @stop.photos.each do |photo| %>
+      <% if false %>
+        <%= image_tag photo.image.url(:thumb), class: 'stop_photo', :html => {
+          rel: "prettyPhoto[pp_gal]", alt: 'photo' } %>
+      <% end %>
+      <%= link_to image_tag(photo.image.url(:thumb)), photo.image.url, rel: "prettyPhoto[pp_gal]", class: "prettyphoto" %>
+    <% end %>
+    <%= form_for @stop, :url => journey_stop_path(@journey, @stop), :html => { :method => :put, :multipart => true, :id => 'upload_photos' } do |f| %>
+      <p id="upload_photo-link" class="btn-black"> Upload Photos </p>
+      <%= file_field_tag 'images[]', :multiple => true, style: "display:none", id: 'stop_images' %>
     <% end %>
   </div>
   <p>

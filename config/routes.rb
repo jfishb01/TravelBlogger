@@ -3,7 +3,9 @@ TravelBlogger::Application.routes.draw do
   devise_for :users, :controllers => { :registrations => "users/registrations" }
 
   resources :journeys do
-    resources :stops
+    resources :stops do
+      resources :photos
+    end
   end
 
   root  'static_pages#home'

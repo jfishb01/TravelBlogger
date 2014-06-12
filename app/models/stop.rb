@@ -2,10 +2,10 @@ class Stop < ActiveRecord::Base
 
   belongs_to :journey
 
-  # default_scope -> { order('created_at ASC') }
+  has_many :photos, dependent: :destroy
+  accepts_nested_attributes_for :photos, allow_destroy: true
 
-  # geocoded_by :location
-  # before_validation :geocode
+  # default_scope -> { order('created_at ASC') }
 
   # validates :title, presence: true, length: { maximum: 60 }, uniqueness: { scope: :journey }
   # validates :location, presence: true, length: { maximum: 256 }
