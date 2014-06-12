@@ -131,7 +131,7 @@ function initialize() {
     var marker = new google.maps.Marker({
         position: new google.maps.LatLng(data.lat, data.lng),
         map: map.getMap(),
-        title: data.marker_title
+        title: data.marker_title,
     });
 
     bounds.extend(marker.position);
@@ -180,7 +180,7 @@ function initialize() {
       path: polyline_coords,
       icons: [{
         icon: lineSymbol,
-        repeat: '300px'
+        // repeat: '300px'
       }],
       geodesic: true,
       strokeColor: '#0088cc',

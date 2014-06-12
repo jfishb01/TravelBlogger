@@ -1,9 +1,35 @@
+<script>
+  $(document).ready(function() {
+    $('body').addClass('map-bg')
+  });
+</script>
 
-<h3>
-  Journey ID: <%= @stop.journey_id %> <br/>
-  Location: <%= @stop.location %> <br/>
-  Title: <%= @stop.title %> <br/>
-  Latitude: <%= @stop.latitude %> <br/>
-  Longitude: <%= @stop.longitude %> <br/>
-  Content: <%= @stop.content %>
-</h3>
+<div class="center">
+  <h1 id='journey-title'> <%= @journey.title %> </h1>
+</div>
+
+<div id='stop-content-box'>
+
+
+<% if false %>
+<ul class="nav nav-tabs">
+  <li><%= link_to "Map", journey_url(@journey) %></li>
+  <li class="active"><a href="#" data-toggle="tab">Content</a></li>
+  <li><a href="#" data-toggle="tab">Photos</a></li>
+</ul>
+<% end %>
+
+
+  <div class='center'>
+    <h1> <%= @stop.title %> </h1>
+    <h2> <%= "(#{@stop.location})" %> </h2>
+    <%= form_for current_user, :url => registration_path(current_user),
+      :html => { :method => :put } do |f| %>
+      <%= f.file_field :avatar, style: "display:none" %>
+      <%= image_tag current_user.avatar.url(:thumb), id: 'profile_pic' %>
+    <% end %>
+  </div>
+  <p>
+    <%= raw(@stop.content) %>
+  </p>
+</div>

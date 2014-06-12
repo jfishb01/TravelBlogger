@@ -15,6 +15,17 @@ $darkGray: #1E1E1E;
   box-sizing: border-box;
 }
 
+
+#cke_stop_content {
+  margin-left: auto;
+  margin-right: auto;
+  width: 90% !important;
+}
+
+.cke_contents {
+  height: 275px !important;
+}
+
 #marker-checkbox {
   margin-left: 10px;
   margin-bottom: 6px;
@@ -267,6 +278,21 @@ footer {
 
 
 /* containers */
+
+#stop-content-box {
+  margin-top: 0px;
+  background: $offWhite;
+  border-color: $offBlack;
+  border: 3px;
+  border-style: solid;
+  border-radius: 40px;
+  opacity: 0.94;
+  padding-left: 35px;
+  padding-right: 35px;
+  padding-bottom: 20px;
+  height: 450px;
+  overflow-y: scroll;
+}
 
 .content-box {
   margin-top: 8%;

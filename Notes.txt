@@ -1,5 +1,4 @@
 8. Create stop page
-10. Refresh page after profile upload
 11. On create stop form, leave gmaps up as background
 12. Should I use google maps directions to stay on road or do as the crow flies? Consider hiking, flying, alternate routes, etc. Should I use geodesic polylines?
 13. Format "forgot your password" page
@@ -8,3 +7,5 @@
 19. Change form z-axis to appear over profile
 20. Consider changing validations in stop.rb
 21. Fix cancel link for incorrect form filling out (back doesn't work for multiple failed entries)
+22. Fix failed profile upload
+23. Add delete profile pic option

@@ -1,13 +1,16 @@
 <script>
   $(document).ready(function() {
     $('body').addClass('map-bg');
-    var loc = localStorage.getItem('loc');
-    if(loc) {
-      $('#location-input').hide();
-      $('#loc-hidden').val(loc);
-    }
     $('#lat-hidden').val(localStorage.getItem('lat'));
     $('#lng-hidden').val(localStorage.getItem('lng'));
+
+    var loc = localStorage.getItem('loc');
+    if(!loc) {
+      loc = "";
+    }
+    $('#stop_content').html('<h1>Title: </h1><h2>Location: ' + loc
+      + '</h2><br/>Enter blog content here...');
+
   });
 </script>
 
@@ -25,18 +28,9 @@
       html: { method: :post, :multipart => true }) do |f| %>
 
       <br/>
-      <br/>
 
       <div id='sign-in-form-content'>
 
-        <% if !params[:locatiion].blank? %>
-          <% if !@stop.errors[:location].blank? %>
-            <p class="form-error">
-              <i> Location
-              <%= @stop.errors[:location].first %></i>
-            </p>
-          <% end %>
-        <% end %>
         <% if !@stop.errors[:latitude].blank? %>
           <p class="form-error">
             <i> Latitude
@@ -49,39 +43,14 @@
             <%= @stop.errors[:longitude].first %></i>
           </p>
         <% end %>
-
-        <% if @stop.errors[:title].blank? %>
-          <p> Title </p>
-        <% else %>
-          <p class="form-error">
-            <i> Title
-            <%= @stop.errors[:title].first %></i>
-          </p>
-        <% end %>
-        <%= f.text_field :title, :autofocus => true %>
-
-          <%= f.hidden_field :location, id: "loc-hidden" %>
-          <div id='location-input'>
-            <% if @stop.errors[:location].blank? %>
-              <p class="location-input"> Location </p>
-            <% else %>
-              <p class="form-error location-input">
-                <i> Location
-                <%= @stop.errors[:location].first %></i>
-              </p>
-            <% end %>
-            <%= f.text_field :location, :autofocus => true, class: "location-input" %>
-          </div>
-
-          <%= f.cktext_area :content, :value => 'hey', :cols => 40, :ckeditor => {:language => 'us', :uiColor => '#AADC6E', :toolbar => 'mini'} %>
-
-        <%= f.hidden_field :latitude, id: "lat-hidden" %>
-        <%= f.hidden_field :longitude, id: "lng-hidden" %>
-
-        <br/>
-        <br/>
-        <br/>
       </div>
+
+      <%= f.cktext_area :content, :class => 'ckeditor', id: 'stop_content', :cols => 40, :ckeditor => {:language => 'us', :uiColor => '#0088cc', :toolbar => 'Basic'} %>
+
+      <%= f.hidden_field :latitude, id: "lat-hidden" %>
+      <%= f.hidden_field :longitude, id: "lng-hidden" %>
+
+      <br/>
 
       <div class='center'>
         <%= f.submit "Create", class: 'btn-black' %>
