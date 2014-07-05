@@ -1,0 +1,99 @@
+<script>
+  $(document).ready(function() {
+    $('body').addClass('map-bg');
+
+    $('#profile_pic-div').hover(function (e) {
+      $('#edit_avatar-link').css("visibility", "visible");
+      $('#view_profile-link').css("visibility", "visible");
+    }, function (e) {
+      $('#edit_avatar-link').css("visibility", "hidden");
+      $('#view_profile-link').css("visibility", "hidden");
+    });
+
+    $("#upload_avatar-link").click(function (e) {
+      $("#user_avatar").trigger('click');
+    });
+
+    $("#edit_avatar-link").click(function (e) {
+      $("#user_avatar").trigger('click');
+    });
+
+    $("#user_avatar").on('change', function (e) {
+      $(".edit_user").submit();
+    });
+  });
+</script>
+
+<div style="position: fixed; margin-left: 10%;">
+  <div id='home-content-box'>
+  <div id='home-content'>
+
+    <% if @user.avatar_file_name.nil? %>
+      <% if current_user.id == @user.id %>
+        <%= form_for @user, :url => registration_path(@user),
+          :html => { :method => :put } do |f| %>
+          <p id="upload_avatar-link"> Upload Profile Picture</p>
+          <%= f.file_field :avatar, style: "display:none" %>
+        <% end %>
+      <% else %>
+        <br/>
+      <% end %>
+    <% else %>
+
+      <div id='profile_pic-div' class='center'>
+        <p id="edit_avatar-link"> Edit Pic</p>
+        <%= form_for @user, :url => registration_path(@user),
+          :html => { :method => :put } do |f| %>
+          <% if current_user.id == @user.id %>
+            <%= f.file_field :avatar, style: "display:none" %>
+          <% end %>
+          <%= image_tag @user.avatar.url(:thumb), id: 'profile_pic' %>
+        <% end %>
+      </div>
+    <% end %>
+
+    <div id="username">
+      <%= "#{@user.first_name} #{@user.last_name}" %>
+    </div>
+    <%= image_tag "journey_name_border.png", alt: "+", height: "4",
+      width: "280", class: "journey_name_border" %>
+
+    <div class="home-journey-list">
+      <% if current_user.id ==  @user.id %>
+        <div id='new_journey-link'>
+          <%= image_tag "circle_plus.png", alt: "+", height: "24", width: "24", id: 'create_new_journey-img' %>
+          <%= link_to "New Journey", new_journey_path, id: "new_journey-btn" %>
+        </div>
+        <%= image_tag "journey_name_border.png", alt: "+", height: "4",
+            width: "280", class: "journey_name_border" %>
+        <br/>
+      <% end %>
+      <% @user.journeys.each do |journey| %>
+        <%= link_to journey.title, journey_path(journey),
+          class: 'home_journey_name' %>
+          <br/>
+          <% if request.original_url.match(journey_path(journey)) %>
+            <% journey.stops.each do |stop| %>
+              <ul>
+                <li class='sidebar_stop_list'>
+                  <% if stop.title.blank? %>
+                    <%= link_to '---', journey_stop_path(journey, stop), class: 'sidebar_stop_link' %>
+                  <% else %>
+                    <%= link_to stop.title, journey_stop_path(journey, stop), class: 'sidebar_stop_link' %>
+                    <% end %>
+                  </li>
+              </ul>
+            <% end %>
+          <% end %>
+        <%= image_tag "journey_name_border.png", alt: "+", height: "4",
+        width: "280", class: "journey_name_border" %>
+        <br/>
+      <% end %>
+    </div>
+    </div>
+    <% if current_user.id == @user.id %>
+      <%= link_to "Account", edit_user_registration_path,
+        id: "edit_account-btn" %>
+    <% end %>
+  </div>
+</div>

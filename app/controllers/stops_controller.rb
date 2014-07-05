@@ -1,24 +1,20 @@
 class StopsController < ApplicationController
 
+  before_action :correct_user?, only: [:new, :create, :edit, :update, :destroy]
+
   def new
     @stop = Stop.new
+    @journey = Journey.find(params[:journey_id])
+  end
+
+  def edit
+    @stop = Stop.find(params[:id])
+    @journey = Journey.find(params[:journey_id])
   end
 
   def create
   @journey = Journey.find(params[:journey_id])
   @stop = @journey.stops.build(stop_params)
-
-  title_str = @stop.content.split('h1>')[1].strip
-  title_str = title_str.split(':')[1].strip
-  @stop.title = title_str.chop.chop
-
-  location_str = @stop.content.split('h2>')[1].strip
-  location_str = location_str.split(':')[1].strip
-  @stop.location = location_str.chop.chop
-
-  content = @stop.content.split('h2>')[2].strip
-  content.gsub(/\<br\/\>/, '')
-  @stop.content = content
 
     if @stop.save
       redirect_to journey_stop_url(@journey, @stop)
@@ -30,6 +26,14 @@ class StopsController < ApplicationController
   def show
     @stop = Stop.find(params[:id])
     @journey = Journey.find(params[:journey_id])
+
+    @markers = []
+
+    marker_hash = { lat: @stop.latitude, lng: @stop.longitude,
+      infowindow: "#{@stop.location}",
+      marker_title: @stop.title }
+    @markers.push(marker_hash)
+
   end
 
   def update
@@ -37,11 +41,13 @@ class StopsController < ApplicationController
     @stop = Stop.find(params[:id])
     @journey = Journey.find(params[:journey_id])
 
-    params[:images].each do |image|
-      @stop.photos.create(image: image)
+    if(!params[:images].nil?)
+      params[:images].each do |image|
+        @stop.photos.create(image: image)
+      end
     end
 
-    if @stop.update_attributes(stop_update_params)
+    if @stop.update_attributes(stop_params)
       redirect_to journey_stop_url(@journey, @stop)
     else
       flash[:error] = "There was an error while uploading. Please make sure all uploaded files are images."
@@ -50,13 +56,28 @@ class StopsController < ApplicationController
     end
   end
 
+  def destroy
+    @stop = Stop.find(params[:id])
+    @journey = Journey.find(params[:journey_id])
+    @stop.destroy
+
+    redirect_to journey_path(@journey)
+  end
+
   private
 
     def stop_params
-      params.require(:stop).permit(:latitude, :longitude, :content, :images)
+      params.require(:stop).permit(:title, :location, :latitude, :longitude, :content,
+        :images, :start_date, :end_date, :updated_at, :created_at)
     end
 
     def stop_update_params
-      params.permit(:latitude, :longitude, :content, :images)
+      params.permit(:title, :location, :latitude, :longitude, :content, :images, :start_date, :end_date, :updated_at)
+    end
+
+    def correct_user?
+      # @journey = current_user.journeys.find_by(:journey_id, params[:journey_id])
+      # @stop = @journey.stops.find_by(id: params[:id])
+      # redirect_to root_url if @stop.nil?
     end
 end

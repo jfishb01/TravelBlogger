@@ -1,0 +1,33 @@
+<script>
+  $(document).ready(function() {
+    $('body').addClass('map-bg')
+  });
+</script>
+
+<div class='form-box'>
+  <div class='form-content'>
+    <div class="form-hdr">
+      <%= link_to "x", journey_stop_path(@journey, @stop), class: 'cancel-btn' %>
+      <h2 class='center'>Edit Photo</h2>
+    </div>
+      <%= form_for(@photo, url: journey_stop_photo_path(@journey, @stop, @photo), html: { method: :patch }, :multipart => true) do |f| %>
+        <div id='sign-in-form-content'>
+        </br>
+        <p> Title </p>
+        <%= f.text_field :title %>
+        </br>
+        <%= image_tag(@photo.image.url(:medium)) %>
+        <br/>
+        <p> Caption </p>
+        <%= f.text_field :caption %>
+        <br/>
+        <br/>
+      </div>
+      <div class='center'>
+        <%= f.submit "Update", class: 'btn-black' %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+

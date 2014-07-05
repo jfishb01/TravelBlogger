@@ -1,3 +1,7 @@
+<script src="//maps.google.com/maps/api/js?v=3.13&amp;sensor=true&amp;libraries=geometry" type="text/javascript"></script>
+<script src='//google-maps-utility-library-v3.googlecode.com/svn/tags/markerclustererplus/2.0.14/src/markerclusterer_packed.js' type='text/javascript'></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+
 <script>
   $(document).ready(function() {
     $('body').addClass('map-bg');
@@ -15,37 +19,195 @@
 </script>
 
 <div class="center">
-  <h1 id='journey-title'> <%= @journey.title %> </h1>
+  <h1>
+  <%= link_to @journey.title, journey_path(@journey), id: 'journey-title', style: "cursor: pointer;" %> </h1>
 </div>
 
 <div id='stop-content-box'>
-
-
-<% if false %>
-<ul class="nav nav-tabs">
-  <li><%= link_to "Map", journey_url(@journey) %></li>
-  <li class="active"><a href="#" data-toggle="tab">Content</a></li>
-  <li><a href="#" data-toggle="tab">Photos</a></li>
-</ul>
-<% end %>
-
-
   <div class='center'>
-    <h1> <%= @stop.title %> </h1>
-    <h2> <%= "(#{@stop.location})" %> </h2>
-    <% @stop.photos.each do |photo| %>
-      <% if false %>
-        <%= image_tag photo.image.url(:thumb), class: 'stop_photo', :html => {
-          rel: "prettyPhoto[pp_gal]", alt: 'photo' } %>
+    <div class="form-hdr">
+      <%= link_to "x", journey_path(@journey), class: 'cancel-btn' %>
+      <h2 class='center'><%= @stop.title %> </h2>
+      <h4> <%= "#{@stop.start_date.strftime("(%-m/%-d/%y")} - #{@stop.end_date.strftime("%-m/%-d/%y)")}" %> </h4>
+      <div id="stop_map" class="gmaps4rails_map"></div>
+      <br/>
+      <% @stop.photos.each do |photo| %>
+        <% if current_user.id == @journey.user_id %>
+          <% path = '<a href="' + edit_journey_stop_photo_path(@journey, @stop, photo) + '">&nbsp;<i>Edit title or caption</i></a>' %>
+          <% delete_path = link_to("delete", journey_stop_photo_path(@journey, @stop, photo), method: :delete, class: "delete-photo-link") %>
+          <%= link_to image_tag(photo.image.url(:thumb), alt: "<h3>" + photo.title.to_s + path + "</h3>"), photo.image.url, rel: "prettyPhoto[pp_gal]", class: "prettyphoto", title: "<h4>" + photo.caption.to_s + path + delete_path + "</h4>" %>
+          <% else %>
+            <%= link_to image_tag(photo.image.url(:thumb), alt: "<h3>" + photo.title.to_s + "</h3>"), photo.image.url, rel: "prettyPhoto[pp_gal]", class: "prettyphoto", title: "<h4>" + photo.caption.to_s +
+               "</h4>" %>
+          <% end %>
       <% end %>
-      <%= link_to image_tag(photo.image.url(:thumb)), photo.image.url, rel: "prettyPhoto[pp_gal]", class: "prettyphoto" %>
-    <% end %>
-    <%= form_for @stop, :url => journey_stop_path(@journey, @stop), :html => { :method => :put, :multipart => true, :id => 'upload_photos' } do |f| %>
-      <p id="upload_photo-link" class="btn-black"> Upload Photos </p>
-      <%= file_field_tag 'images[]', :multiple => true, style: "display:none", id: 'stop_images' %>
-    <% end %>
+
+      <%= form_for @stop, :url => journey_stop_path(@journey, @stop), :html => { :method => :put, :multipart => true,
+        :id => 'upload_photos' } do |f| %>
+        <% if current_user.id == @journey.user_id %>
+          <br/>
+          <br/>
+          <p id="upload_photo-link" class="btn-black"> Upload Photos </p>
+        <% end %>
+        <%= file_field_tag 'images[]', :multiple => true, style: "display:none", id: 'stop_images' %>
+      <% end %>
+    </div>
   </div>
   <p>
     <%= raw(@stop.content) %>
+    <br/>
+    <div class="next_page-btns">
+      <% previous_stop = @stop.previous %>
+      <% if !previous_stop.nil? %>
+        <%= link_to "<-", journey_stop_path(@journey, @stop.previous), class: "next_page-btn" %>
+      <% end %>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <% if current_user.id == @journey.user_id %>
+        <%= link_to "Edit", edit_journey_stop_path(@journey, @stop), id: 'edit-link' %>
+      <% end %>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <% next_stop = @stop.next %>
+      <% if !next_stop.nil? %>
+        <%= link_to "->", journey_stop_path(@journey, @stop.next), class: "next_page-btn" %>
+      <% end %>
+      <% if current_user.id == @journey.user_id %>
+        <br/>
+        <br/>
+        <%= link_to("delete", journey_stop_path(@journey, @stop), method: :delete, data: { confirm: "Are you sure you want to delete this stop? This action cannot be undone." }, class: "delete-stop-link") %>
+      <% end %>
+    </div>
   </p>
 </div>
+
+<script type="text/javascript" charset='utf-8'>
+
+function initialize() {
+
+  //Custom map
+  var mapStyle = [
+    {
+        "featureType": "water",
+        "elementType": "geometry",
+        "stylers": [
+            { "hue": "#0e0e0e" },
+            { "saturation": -100 },
+            { "lightness": -100 },
+            { "visibility": "on" }
+        ]
+    },
+    {
+        "featureType": "water",
+        "elementType": "labels",
+        "stylers": [
+            { "hue": "#e9ecec" },
+            { "saturation": 100 },
+            { "lightness": 100 },
+            { "visibility": "on" }
+        ]
+    },
+    {
+        "featureType": "landscape",
+        "elementType": "all",
+        "stylers": [
+            { "hue": "#ffdfa6" },
+            { "saturation": 100 },
+            { "lightness": -4 },
+            { "visibility": "on" }
+        ]
+    },
+    {
+        "featureType": "poi",
+        "elementType": "geometry",
+        "stylers": [
+            { "hue": "#635641" },
+            { "saturation": 100 },
+            { "lightness": 0 },
+            { "visibility": "on" }
+        ]
+    },
+    {
+        "featureType": "road",
+        "elementType": "all",
+        "stylers": [
+            { "hue": "#777777" },
+            { "saturation": -100 },
+            { "lightness": -6 },
+            { "visibility": "on" }
+        ]
+    },
+    {
+        "featureType": "administrative",
+        "elementType": "all",
+        "stylers": [
+            { "hue": "#005d8b" },
+            { "saturation": 100 },
+            { "lightness": -22 },
+            { "visibility": "on" }
+        ]
+    },
+    {
+        "featureType": "transit",
+        "elementType": "all",
+        "stylers": [
+            { "hue": "#444444" },
+            { "saturation": 0 },
+            { "lightness": -64 },
+            { "visibility": "off" }
+        ]
+    },
+    {
+        "featureType": "poi",
+        "elementType": "labels",
+        "stylers": [
+            { "hue": "#38cc6d" },
+            { "saturation": 100 },
+            { "lightness": -22 },
+            { "visibility": "on" }
+        ]
+    }
+  ];
+
+  // Build the map
+  var map = Gmaps.build('Google');
+  map.buildMap({
+      internal: {id: 'stop_map'},
+      provider: {
+        minZoom:   2,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        styles:    mapStyle
+      }
+    },
+    function(){}
+  );
+
+  var markers_hash = <%=raw @markers.to_json %>
+  var markers = [];
+  var bounds = new google.maps.LatLngBounds();
+
+  // Add stops to map
+  $.each(markers_hash, function (index, data) {
+    var marker = new google.maps.Marker({
+        position: new google.maps.LatLng(data.lat, data.lng),
+        map: map.getMap(),
+        title: data.marker_title,
+    });
+
+    bounds.extend(marker.position);
+    markers.push(marker);
+
+    // Add infowindow and its event handler to the marker
+    var infowindow = new google.maps.InfoWindow({
+      content: data.infowindow
+    });
+
+    infowindow.open(map.getMap(), marker);
+  });
+
+  map.getMap().setCenter(markers[0].position);
+  map.getMap().setZoom(10);
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
+
+</script>

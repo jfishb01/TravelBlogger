@@ -19,82 +19,108 @@
       $( "#sidebar" ).toggle( "slide", { direction: "right" }, 250 );
     });
 
-    $('#profile_pic-div').hover(function (e) {
-      $('#edit_avatar-link').css("visibility", "visible");
+    $('#journey_pic-div').hover(function (e) {
+      $('#edit_journey_pic-link').css("visibility", "visible");
     }, function (e) {
-      $('#edit_avatar-link').css("visibility", "hidden");
+      $('#edit_journey_pic-link').css("visibility", "hidden");
     });
 
-    $("#upload_avatar-link").click(function (e) {
-      $("#user_avatar").trigger('click');
+    $("#upload_journey_pic-link").click(function (e) {
+      $("#journey_photo").trigger('click');
     });
 
-    $("#edit_avatar-link").click(function (e) {
-      $("#user_avatar").trigger('click');
+    $("#edit_journey_pic-link").click(function (e) {
+      $("#journey_photo").trigger('click');
     });
 
-    $("#user_avatar").on('change', function (e) {
-      $(".edit_user").submit();
+    $("#journey_photo").on('change', function (e) {
+      $(".edit_journey").submit();
     });
 
     $('#new_journey-link').click(function (e) {
       window.location.href='/journeys/new';
     });
+
+    var foo = document.getElementById('selected_stop_name');
+    if(foo) {
+      var $foo = $(foo);
+      var rect = foo.getBoundingClientRect();
+      console.log(rect.top);
+      $('.journey-list').scrollTop(rect.top-300);
+    }
   });
 </script>
 
-<% if(user_signed_in?) %>
+<% if request.original_url != root_url && !@journey.nil? %>
   <div id="sidebar-toggle" class='profile-toggle'><p>Menu</p></div>
   <div id="sidebar-tab" class='profile-toggle'><p>Hide</p></div>
   <div id="sidebar">
     <p class="sidebar-nav">
       <br/>
 
-      <% if current_user.avatar_file_name.nil? %>
-        <%= form_for current_user, :url => registration_path(current_user),
-          :html => { :method => :put } do |f| %>
-          <p id="upload_avatar-link"> Upload Profile Picture</p>
-          <%= f.file_field :avatar, style: "display:none" %>
-        <% end %>
-      <% else %>
-
-        <div id='profile_pic-div' class='center'>
-          <p id="edit_avatar-link"> Edit Pic</p>
-          <%= form_for current_user, :url => registration_path(current_user),
-            :html => { :method => :put } do |f| %>
-            <%= f.file_field :avatar, style: "display:none" %>
-            <%= image_tag current_user.avatar.url(:thumb), id: 'profile_pic' %>
+      <% @user = User.find(@journey.user_id) %>
+      <% @user.journeys.each do |journey| %>
+        <% if request.original_url.match(journey_path(journey)) %>
+          <% if journey.photo_file_name.nil? %>
+            <% if current_user.id == @user.id %>
+              <%= form_for journey, :html => { :method => :put } do |f| %>
+                <p id="upload_journey_pic-link"> Upload Journey Picture</p>
+                <%= f.file_field :photo, style: "display:none" %>
+              <% end %>
+            <% else %>
+              <p style="height:10px;"></p>
+            <% end %>
+          <% else %>
+            <div id='journey_pic-div' class='center'>
+              <% if current_user.id == @user.id %>
+                <p id="edit_journey_pic-link"> Edit Pic</p>
+              <% end %>
+              <%= form_for journey, :html => { :method => :put } do |f| %>
+                <%= f.file_field :photo, style: "display:none" %>
+                <%= image_tag journey.photo.url(:thumb), id: 'journey_pic' %>
+              </div>
+            <% end %>
           <% end %>
-        </div>
+          <div id="username">
+            <%= link_to journey.title, journey_path(journey),
+              class: 'journey_name' %>
+          </div>
+        <% end %>
       <% end %>
 
-      <div id="username">
-        <%= "#{current_user.first_name} #{current_user.last_name}" %>
-      </div>
-      <%= image_tag "journey_name_border.png", alt: "+", height: "4",
-        width: "220", class: "journey_name_border" %>
+    <%= image_tag "journey_name_border.png", alt: "+", height: "4",
+      width: "220", class: "journey_name_border" %>
 
       <div class="journey-list">
-
-        <% current_user.journeys.each do |journey| %>
-          <%= link_to journey.title, journey_path(journey),
-            class: 'journey_name' %>
-          <%= image_tag "journey_name_border.png", alt: "+", height: "4",
-            width: "220", class: "journey_name_border" %>
+        <% @user.journeys.each do |journey| %>
+          <% if request.original_url.match(journey_path(journey)) %>
+            <% journey.stops.each do |stop| %>
+              <% if request.original_url.match(journey_stop_path(journey, stop)) %>
+                <span class="stop_indicator"> -&gt;</span>
+                <% if stop.title.blank? %>
+                  <p id='selected_stop_name'>---</p>
+                <% else %>
+                  <p id='selected_stop_name'><%= stop.title %></p>
+                <% end %>
+              <% else %>
+                <% if stop.title.blank? %>
+                  <%= link_to '---', journey_stop_path(journey, stop),
+                    class: 'stop_name' %>
+                <% else %>
+                  <%= link_to stop.title, journey_stop_path(journey, stop),
+                    class: 'stop_name' %>
+                <% end %>
+              <% end %>
+              <%= image_tag "journey_name_border.png", alt: "+", height: "4",
+                width: "220", class: "journey_name_border" %>
+            <% end %>
+          <% end %>
         <% end %>
-
-        <div id='new_journey-link'>
-          <%= image_tag "circle_plus.png", alt: "+", height: "24", width: "24", id: 'create_new_journey-img' %>
-          <%= link_to "New Journey", new_journey_path, id: "new_journey-btn" %>
-        </div>
-        <%= image_tag "journey_name_border.png", alt: "+", height: "4",
-          width: "220", class: "journey_name_border" %><br/>
       </div>
 
-      <%= link_to "Account", edit_user_registration_path,
-        id: "edit_account-btn" %>
-
     </p>
+    <%= link_to "All Blogs", user_path(@user),
+    id: "user_show-link" %>
   </div>
 <% end %>
 

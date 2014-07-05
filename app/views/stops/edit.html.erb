@@ -1,17 +1,10 @@
 <script>
   $(document).ready(function() {
     $('body').addClass('map-bg');
-    $('#lat-hidden').val(localStorage.getItem('lat'));
-    $('#lng-hidden').val(localStorage.getItem('lng'));
+    $('#lat-hidden').val(<%= params[:latitude] %>);
+    $('#lng-hidden').val(<%= params[:longitude] %>);
 
-    var loc = localStorage.getItem('loc');
-    if(!loc) {
-      loc = "";
-    }
-    //$('#stop_content').html('<h1>Title: </h1><h2>Location: ' + loc
-    //  + '</h2><br/>Enter blog content here...');
-    $('#stop_location').val(loc);
-    $('#stop_content').html('Enter blog content here...');
+    $('#stop_content').html(<%= params[:content] %>);
 
     $('#next-btn').on('click', function() {
       $('#stop-title-form').css('visibility', 'hidden');
@@ -28,11 +21,12 @@
   <div class='form-box' id="stop-title-form">
     <div class='form-content'>
       <div class="form-hdr">
-        <%= link_to "x", journey_path(@journey), class: 'cancel-btn' %>
-        <h2 class='center'>New Stop</h2>
+        <%= link_to "x", journey_stop_path(@journey, @stop),
+          class: 'cancel-btn' %>
+        <h2 class='center'>Edit Stop</h2>
       </div>
-      <%= form_for(@stop, url: journey_stops_path,
-        html: { method: :post, :multipart => true }) do |f| %>
+      <%= form_for(@stop, url: journey_stop_path(@journey, @stop),
+        html: { method: :put, :multipart => true }) do |f| %>
 
         <div id='sign-in-form-content'>
 
@@ -105,8 +99,9 @@
   <div class='form-box' id="stop-content-form">
     <div class='form-content'>
       <div class="form-hdr">
-        <%= link_to "x", journey_path(@journey), class: 'cancel-btn' %>
-        <h2 class='center'>New Stop</h2>
+        <%= link_to "x", journey_stop_path(@journey, @stop),
+          class: 'cancel-btn' %>
+        <h2 class='center'>Edit Stop</h2>
       </div>
 
       <br/>
@@ -119,7 +114,7 @@
       <br/>
 
       <div class='center'>
-        <%= f.submit "Create", class: 'btn-black' %>
+        <%= f.submit "Update", class: 'btn-black' %>
         <h4 id="back-link"> Back </h4>
       </div>
     <% end %>

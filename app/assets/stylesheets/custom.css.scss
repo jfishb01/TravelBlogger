@@ -8,11 +8,46 @@ $offWhite: #e9ecec;
 $offBlack: #0e0e0e;
 $deepSkyBlue: #0088cc;
 $darkGray: #1E1E1E;
+$darkBlue: #005d8b;
 
 @mixin box_sizing {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
+}
+
+#back-link {
+  color: $deepSkyBlue;
+  &:hover {
+    color: $darkBlue;
+    text-decoration: none;
+    cursor: pointer;
+  }
+}
+
+#stop-content-form {
+  visibility: hidden;
+}
+
+#stop-title-form {
+  top: 60px;
+  position: fixed;
+  width: 935px;
+  height: 489px;
+}
+
+.sidebar_stop_list {
+  color: $offWhite;
+  margin-left: 10px;
+  line-height: 80% !important;
+}
+
+.sidebar_stop_link {
+  color: $offWhite;
+  &:hover {
+    color: $grayMediumLight;
+    text-decoration: none;
+  }
 }
 
 .stop_photo {
@@ -26,7 +61,7 @@ $darkGray: #1E1E1E;
 }
 
 .cke_contents {
-  height: 275px !important;
+  height: 250px !important;
 }
 
 #marker-checkbox {
@@ -50,7 +85,7 @@ $darkGray: #1E1E1E;
     color: $deepSkyBlue;
     &:hover {
       cursor: pointer;
-      color: #005d8b;
+      color: $darkBlue;
     }
   }
 }
@@ -63,12 +98,28 @@ $darkGray: #1E1E1E;
 .cancel-btn {
   color: gray;
   font-size: 32px;
-  right: 0px;
+  left: 0px;
   top: 0px;
   position: absolute;
   &:hover {
     cursor: pointer;
     color: #a8a8a8;
+    text-decoration: none;
+  }
+}
+
+.next_page-btns {
+  text-align: center;
+}
+
+.next_page-btn {
+  color: gray;
+  font-size: 32px;
+
+  &:hover {
+    cursor: pointer;
+    color: #a8a8a8;
+    text-decoration: none;
   }
 }
 
@@ -76,6 +127,24 @@ $darkGray: #1E1E1E;
   font-size: 16px;
   p {
     font-size: 12px;
+  }
+}
+
+.delete-photo-link {
+  color: #a0100a;
+  font-style: italic;
+  margin-left: 15px;
+  &:hover {
+    color: #830e09;
+  }
+}
+
+.delete-stop-link {
+  color: #a0100a;
+  font-size: 18px;
+  &:hover {
+    color: #830e09;
+    text-decoration: underline;
   }
 }
 
@@ -88,6 +157,17 @@ $darkGray: #1E1E1E;
   height: 94%;
   label { width: auto; display:inline; }
   img { max-width: none; }
+}
+
+#stop_map {
+  background: $offBlack;
+  position: relative;
+  width: 80%;
+  margin-left: 10%;
+  height: 200px;
+  label { width: auto; display:inline; }
+  img { max-width: none; }
+  border: 2px $offBlack solid;
 }
 
 .controls {
@@ -115,6 +195,11 @@ $darkGray: #1E1E1E;
   top: -20px;
   position: relative;
   border-radius: 7px;
+  &:hover {
+    text-decoration: none;
+    cursor: default;
+  }
+
 }
 
 .hint {
@@ -282,6 +367,23 @@ footer {
 
 /* containers */
 
+#home-content-box {
+  margin-top: 0px;
+  background: $darkGray;
+  border-color: $offBlack;
+  border: 3px;
+  border-style: solid;
+  border-radius: 40px;
+  opacity: 0.98;
+  padding-left: 35px;
+  padding-right: 35px;
+  padding-bottom: 20px;
+  left: 50%;
+  height: 465px;
+  width: 300px;
+  position: relative;
+}
+
 #stop-content-box {
   margin-top: 0px;
   background: $offWhite;
@@ -376,7 +478,7 @@ footer {
   margin-left: 15px;
 }
 
-.journey_name {
+.home_journey_name {
   color: $offWhite;
   line-height: 40px;
   margin-right: 15px;
@@ -388,6 +490,57 @@ footer {
     color: $grayMediumLight;
     cursor: pointer;
   }
+}
+
+.journey_name {
+  color: $offWhite;
+  text-transform: uppercase;
+  text-align: center;
+  // line-height: 40px;
+  margin-right: 15px;
+  margin-left: 15px;
+  font-size: 18px;
+  &:hover {
+    text-decoration: none;
+    color: $grayMediumLight;
+    cursor: pointer;
+  }
+}
+
+.stop_name {
+  color: $offWhite;
+  text-align: center;
+  line-height: 40px;
+  margin-right: 15px;
+  margin-left: 15px;
+  padding-top: 20px;
+  font-size: 18px;
+  &:hover {
+    text-decoration: none;
+    color: $grayMediumLight;
+    cursor: pointer;
+  }
+}
+
+#selected_stop_name {
+  display: inline;
+  color: $yellow;
+  text-align: center;
+  line-height: 40px;
+  margin-right: 15px;
+  margin-left: 15px;
+  padding-top: 20px;
+  font-size: 18px;
+}
+
+.stop_indicator {
+  color: $yellow;
+  text-align: center;
+  line-height: 40px;
+  margin-right: 15px;
+  margin-left: 15px;
+  padding-top: 20px;
+  font-size: 18px;
 }
 
 .devise-link {
@@ -419,7 +572,6 @@ footer {
   background: $darkGray;
   position: fixed;
   /*position: relative;*/
-  height: 75%;
   height: 480px;
   top: 60px;
   border-left: 4px;
@@ -524,6 +676,19 @@ footer {
   position: relative;
 }
 
+#journey_pic-div {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#journey_pic {
+  border-radius: 30px;
+  height: 60px;
+  width: 60px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+  position: relative;
+}
+
 #upload_avatar-link {
   cursor: pointer;
   color: $deepSkyBlue;
@@ -533,7 +698,20 @@ footer {
   text-align: center;
   &:hover {
     text-decoration: none;
-    color: #005d8b;
+    color: $darkBlue;
+  }
+}
+
+#upload_journey_pic-link {
+  cursor: pointer;
+  color: $deepSkyBlue;
+  margin-top: 15px;
+  margin-left: 15px;
+  margin-right: 15px;
+  text-align: center;
+  &:hover {
+    text-decoration: none;
+    color: $darkBlue;
   }
 }
 
@@ -560,11 +738,70 @@ footer {
   }
 }
 
+#edit_journey_pic-link {
+  display: inline;
+  visibility: hidden;
+  cursor: pointer;
+  color: white;
+  background: $offBlack;
+  opacity: 0.8;
+  left: 85px;
+  text-align: center;
+  position: absolute;
+  margin-top: 37px;
+  width: 80px;
+  z-index: 10;
+  &:hover {
+    text-decoration: none;
+    color: $grayMediumLight;
+  }
+}
+
+#view_profile-link {
+  display: inline;
+  visibility: hidden;
+  cursor: pointer;
+  color: white;
+  background: $offBlack;
+  opacity: 0.8;
+  left: 85px;
+  text-align: center;
+  position: absolute;
+  margin-top: 37px;
+  width: 80px;
+  z-index: 10;
+  &:hover {
+    text-decoration: none;
+    color: $grayMediumLight;
+  }
+}
 .input-width {
   max-width: 300px;
 }
 
+#edit-link {
+  color: $deepSkyBlue;
+  font-size: 22px;
+  &:hover {
+    color: $darkBlue;
+    text-decoration: none;
+  }
+}
+
 #edit_account-btn {
+  font-size: 18px;
+  color: $offWhite;
+  left: 150px;
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  &:hover {
+    text-decoration: none;
+    color: $grayMediumLight;
+  }
+}
+
+#user_show-link {
   font-size: 18px;
   color: $offWhite;
   text-align: center;
@@ -575,6 +812,12 @@ footer {
     text-decoration: none;
     color: $grayMediumLight;
   }
+}
+
+.home-journey-list {
+  height: 300px;
+  overflow-y: scroll;
+  position: absolute;
 }
 
 .journey-list {
@@ -641,7 +884,7 @@ footer {
   text-align: center;
   &:hover {
     text-decoration: none;
-    color: #005d8b;
+    color: $darkBlue;
   }
 }
 

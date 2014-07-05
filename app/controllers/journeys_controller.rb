@@ -1,14 +1,16 @@
 class JourneysController < ApplicationController
 
+  before_action :correct_user?, only: [:edit, :update, :destroy]
+
   def new
-    @journey = Journey.new
+    # @journey = Journey.new
+    @journey = current_user.journeys.new
   end
 
   def create
   @journey = current_user.journeys.build(journey_params)
     if @journey.save
-      flash[:success] = 'Journey Created!'
-      redirect_to root_url
+      redirect_to journey_path(@journey)
     else
       render 'new', :method => 'get'
     end
@@ -21,17 +23,41 @@ class JourneysController < ApplicationController
 
     @journey.stops.each do |stop|
       marker_hash = { lat: stop.latitude, lng: stop.longitude,
-        infowindow: "#{stop.title} <br/> See content", marker_title: stop.title }
+        infowindow: "#{stop.title} <br/> <a href='" + journey_stop_path(@journey, stop) + "'>See content</a>",
+        marker_title: stop.title }
       @markers.push(marker_hash)
+    end
+  end
+
+  def update
+    @journey = Journey.find(params[:id])
+
+    if @journey.update_attributes(journey_params)
+      redirect_to journey_url(@journey)
+    else
+      flash[:error] = "There was an error while uploading. Please make sure all uploaded files are images."
+      # redirect_to journey_stop_url(@journey, @stop)
+      redirect_to root_url
     end
 
   end
 
+  def destroy
+    @journey = Journey.find(params[:id])
+    @journey.destroy
+
+    redirect_to root_url
+  end
 
   private
 
     def journey_params
       params.require(:journey).permit(:title, :photo)
+    end
+
+    def correct_user?
+      # @journey = current_user.journeys.find_by(id: params[:id])
+      # redirect_to root_url if @journey.nil?
     end
 
 end

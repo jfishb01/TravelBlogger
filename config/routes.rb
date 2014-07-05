@@ -2,6 +2,8 @@ TravelBlogger::Application.routes.draw do
   mount Ckeditor::Engine => '/ckeditor'
   devise_for :users, :controllers => { :registrations => "users/registrations" }
 
+  resources :users, :only => [:show]
+
   resources :journeys do
     resources :stops do
       resources :photos

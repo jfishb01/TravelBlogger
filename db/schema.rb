@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140612150730) do
+ActiveRecord::Schema.define(version: 20140704232832) do
 
   create_table "ckeditor_assets", force: true do |t|
     t.string   "data_file_name",               null: false
@@ -48,15 +48,20 @@ ActiveRecord::Schema.define(version: 20140612150730) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
+    t.string   "title"
   end
 
   create_table "stops", force: true do |t|
-    t.string  "location"
-    t.string  "title"
-    t.float   "latitude"
-    t.float   "longitude"
-    t.text    "content"
-    t.integer "journey_id"
+    t.string   "location"
+    t.string   "title"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.text     "content"
+    t.integer  "journey_id"
+    t.datetime "updated_at"
+    t.datetime "created_at"
+    t.datetime "start_date"
+    t.datetime "end_date"
   end
 
   create_table "users", force: true do |t|

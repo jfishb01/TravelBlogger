@@ -1,5 +1,5 @@
-8. Create stop page
 11. On create stop form, leave gmaps up as background
+11.5 On create stop form, make two pages: one for title and location, one for content.
 12. Should I use google maps directions to stay on road or do as the crow flies? Consider hiking, flying, alternate routes, etc. Should I use geodesic polylines?
 13. Format "forgot your password" page
 14. Format "didn't receive confirmation instructions" page
@@ -9,3 +9,15 @@
 21. Fix cancel link for incorrect form filling out (back doesn't work for multiple failed entries)
 22. Fix failed profile upload
 23. Add delete profile pic option
+24. Fix profile picture so that it crops instead of stretches?
+25. Fix stop content (particularly with tabs)
+26. Restrict editing to correct user
+27. Paperclip using heroku and amazon s3 buckets
+  http://kaffeine.herokuapp.com/ to ping website every 30 minutes so it stays live
+28. Get rid of devise flash messages
+30. Make next page arrows on stop show page skip deleted stops and prevent showing for first and last stops
+32. Hash all pages to make more secure.
+33. Fix word wrapping in sidebar
+37. Create edit forms for stops and journeys
+38. Get ckeditor to retain form data
+39. Add edit to pictures on stop form and profile and journey pictures
