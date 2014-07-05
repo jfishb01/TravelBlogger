@@ -7,6 +7,10 @@ class JourneysController < ApplicationController
     @journey = current_user.journeys.new
   end
 
+  def edit
+    @journey = Journey.find(params[:id])
+  end
+
   def create
   @journey = current_user.journeys.build(journey_params)
     if @journey.save
@@ -35,8 +39,6 @@ class JourneysController < ApplicationController
     if @journey.update_attributes(journey_params)
       redirect_to journey_url(@journey)
     else
-      flash[:error] = "There was an error while uploading. Please make sure all uploaded files are images."
-      # redirect_to journey_stop_url(@journey, @stop)
       redirect_to root_url
     end
 

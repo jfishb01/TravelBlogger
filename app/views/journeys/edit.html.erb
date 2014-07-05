@@ -1,0 +1,45 @@
+<script>
+  $(document).ready(function() {
+    $('body').addClass('map-bg')
+  });
+</script>
+
+
+
+<div class='form-box'>
+  <div class='form-content'>
+    <div class="form-hdr">
+      <div class='cancel-btn'>
+        <p onclick="history.back()"> x </p>
+      </div>
+      <h2 class='center'>New Journey</h2>
+    </div>
+    <%= form_for(@journey, url: journey_path(@journey),
+      html: { method: :patch, :multipart => true }) do |f| %>
+
+      <br/>
+      <br/>
+
+      <div id='sign-in-form-content'>
+        <% if @journey.errors[:title].blank? %>
+          <p> Title </p>
+        <% else %>
+          <p class="form-error">
+            <i>Title
+            <%= @journey.errors[:title].first %></i>
+          </p>
+        <% end %>
+        <%= f.text_field :title, :autofocus => true %>
+
+        <br/>
+        <br/>
+        <br/>
+      </div>
+
+      <div class='center'>
+        <%= f.submit "Update", class: 'btn-black' %>
+      </div>
+    <% end %>
+  </div>
+</div>
+

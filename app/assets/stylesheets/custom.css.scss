@@ -139,12 +139,14 @@ $darkBlue: #005d8b;
   }
 }
 
+#edit-journey-link {
+  font-size: 18px;
+}
 .delete-stop-link {
   color: #a0100a;
   font-size: 18px;
   &:hover {
     color: #830e09;
-    text-decoration: underline;
   }
 }
 

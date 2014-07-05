@@ -49,10 +49,6 @@ class StopsController < ApplicationController
 
     if @stop.update_attributes(stop_params)
       redirect_to journey_stop_url(@journey, @stop)
-    else
-      flash[:error] = "There was an error while uploading. Please make sure all uploaded files are images."
-      # redirect_to journey_stop_url(@journey, @stop)
-      redirect_to root_url
     end
   end
 

@@ -6,7 +6,10 @@
 <div class="center">
   <h1 id='journey-title'> <%= @journey.title %>
     <% if current_user.id == @journey.user_id %>
-    <%= link_to("(delete)", journey_path(@journey), method: :delete, data: { confirm: "Are you sure you want to delete this journey? This action cannot be undone." }, class: "delete-stop-link") %>
+    <%= link_to("(edit", edit_journey_path(@journey),
+      id: "edit-journey-link") %>
+    &nbsp;
+    <%= link_to("delete)", journey_path(@journey), method: :delete, data: { confirm: "Are you sure you want to delete this journey? This action cannot be undone." }, class: "delete-stop-link") %>
   <% end %>
   </h1>
 </div>
