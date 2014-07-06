@@ -5,22 +5,16 @@ gem 'rails', '4.0.2'
 gem 'sanitize', '~> 2.1.0'
 gem 'bootstrap-sass', '2.3.2.0'
 gem 'bcrypt-ruby', '3.0.1'
-# gem 'faker', '1.1.2'
-# gem 'will_paginate', '3.0.4'
-# gem 'bootstrap-will_paginate', '0.0.10'
 gem 'paperclip', '~> 4.0'
-# gem 'cocaine', '0.5.3'
 gem 'devise', '3.0'
-# gem 'rails4-autocomplete', '~> 1.0.7'
-# gem 'spinjs-rails', '~> 1.3'
 gem 'geocoder', '~> 1.2.1'
 gem 'gmaps4rails', '~> 2.1.2'
 gem 'ckeditor', '~> 4.0.11'
 gem 'friendly_id', '~> 5.0.0'
 
 group :development, :test do
+  gem 'pg', '~> 0.17.1'
   gem 'rspec-rails', '2.13.1'
-  gem 'sqlite3', '1.3.8'
   gem 'debugger'
   gem 'capistrano'
   gem 'mailcatcher'
@@ -58,8 +52,6 @@ group :doc do
 end
 
 group :production do
+  gem 'pg', '~> 0.17.1'
   gem 'rails_12factor', '0.0.2'
-  # gem 'mysql2'
-  # gem 'therubyracer'
-  # gem 'passenger', '4.0.37'
 end
