@@ -1,4 +1,5 @@
 class Users::RegistrationsController < Devise::RegistrationsController
+  require 'securerandom'
 
   def update
 
@@ -30,6 +31,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   protected
 
     def after_inactive_sign_up_path_for(resource)
+      resource.update_attribute(:obfuscated_id, SecureRandom.hex)
       confirm_path
     end
 

@@ -4,16 +4,16 @@ class StopsController < ApplicationController
 
   def new
     @stop = Stop.new
-    @journey = Journey.find(params[:journey_id])
+    @journey = Journey.find_by_obfuscated_id(params[:journey_id])
   end
 
   def edit
     @stop = Stop.find(params[:id])
-    @journey = Journey.find(params[:journey_id])
+    @journey = Journey.find_by_obfuscated_id(params[:journey_id])
   end
 
   def create
-  @journey = Journey.find(params[:journey_id])
+  @journey = Journey.find_by_obfuscated_id(params[:journey_id])
   @stop = @journey.stops.build(stop_params)
 
     if @stop.save
@@ -25,7 +25,7 @@ class StopsController < ApplicationController
 
   def show
     @stop = Stop.find(params[:id])
-    @journey = Journey.find(params[:journey_id])
+    @journey = Journey.find_by_obfuscated_id(params[:journey_id])
 
     @markers = []
 
@@ -39,7 +39,7 @@ class StopsController < ApplicationController
   def update
 
     @stop = Stop.find(params[:id])
-    @journey = Journey.find(params[:journey_id])
+    @journey = Journey.find_by_obfuscated_id(params[:journey_id])
 
     if(!params[:images].nil?)
       params[:images].each do |image|
@@ -54,7 +54,7 @@ class StopsController < ApplicationController
 
   def destroy
     @stop = Stop.find(params[:id])
-    @journey = Journey.find(params[:journey_id])
+    @journey = Journey.find_by_obfuscated_id(params[:journey_id])
     @stop.destroy
 
     redirect_to journey_path(@journey)

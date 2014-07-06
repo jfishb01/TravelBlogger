@@ -1,5 +1,8 @@
 class Journey < ActiveRecord::Base
 
+  extend FriendlyId
+  friendly_id :obfuscated_id, use: :slugged
+
   belongs_to :user
 
   default_scope -> { order('updated_at DESC') }
@@ -13,5 +16,6 @@ class Journey < ActiveRecord::Base
 
   validates :title, presence: true, length: { maximum: 30 }, uniqueness: { scope: :user }
   validates_associated :stops
+
 end
 

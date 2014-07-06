@@ -1,12 +1,48 @@
-<h2>Resend confirmation instructions</h2>
+<script>
+  $(document).ready(function() {
+    $('body').addClass('map-bg')
+  });
+</script>
 
-<%= form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post }) do |f| %>
-  <%= devise_error_messages! %>
 
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email, :autofocus => true %></div>
 
-  <div><%= f.submit "Resend confirmation instructions" %></div>
-<% end %>
+<div class='form-box'>
+  <div class='form-content'>
+    <div class="form-hdr">
+      <div class='cancel-btn'>
+        <p onclick="history.back()"> x </p>
+      </div>
+      <h2 class='center'>Resend Confirmation Instructions</h2>
+    </div>
+    <%= form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post }) do |f| %>
 
-<%= render "devise/shared/links" %>
+      <br/>
+      <br/>
+
+      <div id='sign-in-form-content'>
+        <% if @user.errors[:email].blank? %>
+          <p> Email </p>
+        <% else %>
+          <p class="form-error">
+            <i>Email
+            <%= @user.errors[:email].first %></i>
+          </p>
+        <% end %>
+        <%= f.email_field :email, :autofocus => true %>
+
+        <br/>
+        <br/>
+        <br/>
+      </div>
+
+      <div class='center'>
+        <div><%= f.submit "Resend Confirmation Instructions", class: "btn-black", onclick: "localStorage.setItem('profile_tab', 'visible');" %>
+        </div>
+        <br/>
+        <%= render "devise/shared/links" %>
+      </div>
+    <% end %>
+
+  </div>
+</div>
+

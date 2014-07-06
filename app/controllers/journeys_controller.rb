@@ -1,4 +1,5 @@
 class JourneysController < ApplicationController
+  require 'securerandom'
 
   before_action :correct_user?, only: [:edit, :update, :destroy]
 
@@ -8,11 +9,12 @@ class JourneysController < ApplicationController
   end
 
   def edit
-    @journey = Journey.find(params[:id])
+    @journey = Journey.find_by_obfuscated_id(params[:id])
   end
 
   def create
   @journey = current_user.journeys.build(journey_params)
+  @journey.update_attribute(:obfuscated_id, SecureRandom.hex)
     if @journey.save
       redirect_to journey_path(@journey)
     else
@@ -21,7 +23,7 @@ class JourneysController < ApplicationController
   end
 
   def show
-    @journey = Journey.find(params[:id])
+    @journey = Journey.find_by_obfuscated_id(params[:id])
 
     @markers = []
 
@@ -34,7 +36,7 @@ class JourneysController < ApplicationController
   end
 
   def update
-    @journey = Journey.find(params[:id])
+    @journey = Journey.find_by_obfuscated_id(params[:id])
 
     if @journey.update_attributes(journey_params)
       redirect_to journey_url(@journey)
@@ -45,7 +47,7 @@ class JourneysController < ApplicationController
   end
 
   def destroy
-    @journey = Journey.find(params[:id])
+    @journey = Journey.find_by_obfuscated_id(params[:id])
     @journey.destroy
 
     redirect_to root_url

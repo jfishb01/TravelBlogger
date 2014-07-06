@@ -18,13 +18,14 @@
       $("#user_avatar").trigger('click');
     });
 
-    $("#user_avatar").on('change', function (e) {
+    $("#user_avatar").on('open', function (e) {
       $(".edit_user").submit();
     });
   });
 </script>
 
 <% if user_signed_in? %>
+  <% redirect_to user_path(current_user) %>
   <div style="position: fixed; margin-left: 10%;">
     <div id='home-content-box'>
     <div id='home-content'>
