@@ -47,7 +47,7 @@ class StopsController < ApplicationController
       end
     end
 
-    if @stop.update_attributes(stop_params)
+    if @stop.update_attributes(stop_update_params)
       redirect_to journey_stop_url(@journey, @stop)
     end
   end

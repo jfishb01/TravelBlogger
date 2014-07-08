@@ -11,7 +11,11 @@ class User < ActiveRecord::Base
 
   # default_scope -> { order('last_name ASC, first_name ASC, email ASC') }
 
-  has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "80x80>" }, :default_url => "/images/:style/missing.png"
+  has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "80x80>" },
+    :default_url => "/images/:style/missing.png",
+    :url => "/users/:hash.:extension",
+    :path => "/users/:hash.:extension",
+    :hash_secret => SECRET_KEY1
   validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
 
   has_many :journeys, dependent: :destroy

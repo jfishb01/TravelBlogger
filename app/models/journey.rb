@@ -11,7 +11,11 @@ class Journey < ActiveRecord::Base
 
   accepts_nested_attributes_for :stops, allow_destroy: true
 
-  has_attached_file :photo, :styles => { :medium => "300x300>", :thumb => "80x80>" }, :default_url => "/images/:style/missing.png"
+  has_attached_file :photo, :styles => { :medium => "300x300>", :thumb => "80x80>" },
+    :default_url => "/images/:style/missing.png",
+    :url => "/journeys/:hash.:extension",
+    :path => "/journeys/:hash.:extension",
+    :hash_secret => SECRET_KEY2
   validates_attachment_content_type :photo, :content_type => /\Aimage\/.*\Z/
 
   validates :title, presence: true, length: { maximum: 30 }, uniqueness: { scope: :user }
