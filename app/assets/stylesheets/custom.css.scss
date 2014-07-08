@@ -16,6 +16,10 @@ $darkBlue: #005d8b;
   box-sizing: border-box;
 }
 
+.show_stop {
+  white-space: nowrap
+}
+
 #back-link {
   color: $deepSkyBlue;
   &:hover {
@@ -822,10 +826,11 @@ footer {
   position: absolute;
 }
 
-.journey-list {
+.stop-list {
   max-height: 63%;
   overflow-y: scroll;
   position: relative;
+  overflow-x: hidden;
 }
 
 #new_journey-link {

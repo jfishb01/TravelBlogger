@@ -91,25 +91,29 @@
     <%= image_tag "journey_name_border.png", alt: "+", height: "4",
       width: "220", class: "journey_name_border" %>
 
-      <div class="journey-list">
+      <div class="stop-list">
         <% @user.journeys.each do |journey| %>
           <% if request.original_url.match(journey_path(journey)) %>
             <% journey.stops.each do |stop| %>
               <% if request.original_url.match(journey_stop_path(journey, stop)) %>
-                <span class="stop_indicator"> -&gt;</span>
-                <% if stop.title.blank? %>
-                  <p id='selected_stop_name'>---</p>
-                <% else %>
-                  <p id='selected_stop_name'><%= stop.title %></p>
-                <% end %>
+                <span class='show_stop'>
+                  <span class="stop_indicator"> -&gt;</span>
+                  <% if stop.title.blank? %>
+                    <p id='selected_stop_name'>---</p>
+                  <% else %>
+                    <p id='selected_stop_name'><%= stop.title %></p>
+                  <% end %>
+                </span>
               <% else %>
-                <% if stop.title.blank? %>
-                  <%= link_to '---', journey_stop_path(journey, stop),
-                    class: 'stop_name' %>
-                <% else %>
-                  <%= link_to stop.title, journey_stop_path(journey, stop),
-                    class: 'stop_name' %>
-                <% end %>
+                <span class='show_stop'>
+                  <% if stop.title.blank? %>
+                    <%= link_to '---', journey_stop_path(journey, stop),
+                      class: 'stop_name' %>
+                  <% else %>
+                    <%= link_to stop.title, journey_stop_path(journey, stop),
+                      class: 'stop_name' %>
+                  <% end %>
+                </span>
               <% end %>
               <%= image_tag "journey_name_border.png", alt: "+", height: "4",
                 width: "220", class: "journey_name_border" %>
