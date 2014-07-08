@@ -11,9 +11,10 @@ gem 'geocoder', '~> 1.2.1'
 gem 'gmaps4rails', '~> 2.1.2'
 gem 'ckeditor', '~> 4.0.11'
 gem 'friendly_id', '~> 5.0.0'
+gem 'pg', '~> 0.17.1'
+gem 'aws-sdk', '~> 1.5.7'
 
 group :development, :test do
-  gem 'pg', '~> 0.17.1'
   gem 'rspec-rails', '2.13.1'
   gem 'debugger'
   gem 'capistrano'
@@ -52,7 +53,5 @@ group :doc do
 end
 
 group :production do
-  gem 'pg', '~> 0.17.1'
   gem 'rails_12factor', '0.0.2'
-  gem 'aws-sdk', '~> 1.5.7'
 end
