@@ -14,6 +14,8 @@ config/initializers/secret_token.rb
 config/secrets.yml
 config/aws.yml
 config/initializers/secret_keys.rb
+config/mailer.yml
+config/application.yml
 
 ## Environment normalisation:
 /.bundle
@@ -24,3 +26,6 @@ config/initializers/secret_keys.rb
 
 # unless supporting rvm < 1.11.0 or doing something fancy, ignore this:
 .rvmrc
+
+# Ignore application configuration
+/config/application.yml
