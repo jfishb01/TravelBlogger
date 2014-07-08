@@ -15,7 +15,7 @@ class Journey < ActiveRecord::Base
     :default_url => "/images/:style/missing.png",
     :url => "/journeys/:hash.:extension",
     :path => "/journeys/:hash.:extension",
-    :hash_secret => SECRET_KEY2
+    :hash_secret => ENV['SECRET_KEY2']
   validates_attachment_content_type :photo, :content_type => /\Aimage\/.*\Z/
 
   validates :title, presence: true, length: { maximum: 30 }, uniqueness: { scope: :user }

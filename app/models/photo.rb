@@ -7,7 +7,7 @@ class Photo < ActiveRecord::Base
     :default_url => "/images/:style/missing.png",
     :url => "/stops/:hash.:extension",
     :path => "/stops/:hash.:extension",
-    :hash_secret => SECRET_KEY3
+    :hash_secret => ENV['SECRET_KEY3']
   validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
 
   validates :caption, length: { maximum: 500 }

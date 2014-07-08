@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
     :default_url => "/images/:style/missing.png",
     :url => "/users/:hash.:extension",
     :path => "/users/:hash.:extension",
-    :hash_secret => SECRET_KEY1
+    :hash_secret => ENV['SECRET_KEY1']
   validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
 
   has_many :journeys, dependent: :destroy
