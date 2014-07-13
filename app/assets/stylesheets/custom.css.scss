@@ -58,10 +58,11 @@ $darkBlue: #005d8b;
   cursor: pointer;
 }
 
-#cke_stop_content {
-  margin-left: auto;
-  margin-right: auto;
+#stop_content {
+  margin-left: 4%;
+  resize: none;
   width: 90% !important;
+  height: 250px;
 }
 
 .cke_contents {

@@ -18,8 +18,6 @@
 //= require underscore
 //= require gmaps/google
 //= require prettyphoto-rails
-//= require ckeditor/override
-//= require ckeditor/init
 //= require_tree .
 
 

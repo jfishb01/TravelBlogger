@@ -106,7 +106,7 @@
 
       <br/>
 
-      <%= f.cktext_area :content, :class => 'ckeditor', id: 'stop_content', :cols => 40, :ckeditor => {:language => 'us', :uiColor => '#0088cc', :toolbar => 'Basic'} %>
+      <%= f.text_area :content, :class => 'ckeditor', id: 'stop_content' %>
 
       <%= f.hidden_field :latitude, id: "lat-hidden" %>
       <%= f.hidden_field :longitude, id: "lng-hidden" %>

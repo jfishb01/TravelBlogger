@@ -5,7 +5,7 @@
 5. Add delete profile pic option
 6. Fix profile picture so that it crops instead of stretches?
 7. Get rid of devise flash messages
-9. Fix word wrapping in sidebar
+8. switch to mercury editor instead of ckeditor
 
 
 

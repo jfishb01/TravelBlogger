@@ -9,11 +9,21 @@ gem 'paperclip', '~> 4.0'
 gem 'devise', '3.0'
 gem 'geocoder', '~> 1.2.1'
 gem 'gmaps4rails', '~> 2.1.2'
-gem 'ckeditor', '~> 4.0.11'
+# gem 'ckeditor', '~> 4.0.11'
+# gem 'ckeditor_rails'
 gem 'friendly_id', '~> 5.0.0'
 gem 'pg', '~> 0.17.1'
 gem 'aws-sdk', '~> 1.5.7'
 gem 'figaro'
+gem 'sass-rails', '~> 4.0.3'
+gem 'uglifier', '2.5.1'
+gem 'coffee-rails', '~> 4.0.1'
+gem 'jquery-rails', '3.0.4'
+gem 'prettyphoto-rails'
+gem 'turbolinks', '1.1.1'
+gem 'jbuilder', '1.0.2'
+gem 'sprockets', '2.11.0'
+gem 'non-stupid-digest-assets', '~> 1.0.4'
 
 group :development, :test do
   gem 'rspec-rails', '2.13.1'
@@ -39,15 +49,6 @@ group :test do
   # gem 'win32console', '1.3.2'
   # gem 'wdm', '0.1.0'
 end
-
-gem 'sass-rails', '4.0.0'
-gem 'uglifier', '2.1.1'
-gem 'coffee-rails', '4.0.0'
-gem 'jquery-rails', '3.0.4'
-gem 'prettyphoto-rails'
-gem 'turbolinks', '1.1.1'
-gem 'jbuilder', '1.0.2'
-gem 'sprockets', '2.11.0'
 
 group :doc do
   gem 'sdoc', '0.3.20', require: false
