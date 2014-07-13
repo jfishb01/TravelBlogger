@@ -62,18 +62,24 @@
       <% @user.journeys.each do |journey| %>
         <% if request.original_url.match(journey_path(journey)) %>
           <% if journey.photo_file_name.nil? %>
-            <% if current_user.id == @user.id %>
-              <%= form_for journey, :html => { :method => :put } do |f| %>
-                <p id="upload_journey_pic-link"> Upload Journey Picture</p>
-                <%= f.file_field :photo, style: "display:none" %>
+            <% if user_signed_in? %>
+              <% if current_user.id == @user.id %>
+                <%= form_for journey, :html => { :method => :put } do |f| %>
+                  <p id="upload_journey_pic-link"> Upload Journey Picture</p>
+                  <%= f.file_field :photo, style: "display:none" %>
+                <% end %>
+              <% else %>
+                <p style="height:10px;"></p>
               <% end %>
             <% else %>
               <p style="height:10px;"></p>
             <% end %>
           <% else %>
             <div id='journey_pic-div' class='center'>
-              <% if current_user.id == @user.id %>
-                <p id="edit_journey_pic-link"> Edit Pic</p>
+              <% if user_signed_in? %>
+                <% if current_user.id == @user.id %>
+                  <p id="edit_journey_pic-link"> Edit Pic</p>
+                <% end %>
               <% end %>
               <%= form_for journey, :html => { :method => :put } do |f| %>
                 <%= f.file_field :photo, style: "display:none" %>

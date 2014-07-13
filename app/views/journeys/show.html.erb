@@ -5,24 +5,28 @@
 <div id="map" class="gmaps4rails_map"></div>
 <div class="center">
   <h1 id='journey-title'> <%= @journey.title %>
-    <% if current_user.id == @journey.user_id %>
-    <%= link_to("(edit", edit_journey_path(@journey),
-      id: "edit-journey-link") %>
-    &nbsp;
-    <%= link_to("delete)", journey_path(@journey), method: :delete, data: { confirm: "Are you sure you want to delete this journey? This action cannot be undone." }, class: "delete-stop-link") %>
+    <% if user_signed_in? %>
+      <% if current_user.id == @journey.user_id %>
+      <%= link_to("(edit", edit_journey_path(@journey),
+        id: "edit-journey-link") %>
+      &nbsp;
+      <%= link_to("delete)", journey_path(@journey), method: :delete, data: { confirm: "Are you sure you want to delete this journey? This action cannot be undone." }, class: "delete-stop-link") %>
+    <% end %>
   <% end %>
   </h1>
 </div>
-<% if current_user.id == @journey.user_id %>
-  <div id='new_stop-link_group'>
-    <%= image_tag "circle_plus.png", alt: "+", height: "24", width: "24", id: 'create_new_stop-img' %>
-    <p id='new_stop-link'> New Stop </p>
-    <br/>
-    <input id="pac-input" type="text" placeholder="Enter Location To Create New Stop">
-    <br/>
-    <input id="marker-checkbox" type="checkbox" value="checked"><p id="marker-checkbox-text">
-      Create marker on map click</p></input>
-  </div>
+<% if user_signed_in? %>
+  <% if current_user.id == @journey.user_id %>
+    <div id='new_stop-link_group'>
+      <%= image_tag "circle_plus.png", alt: "+", height: "24", width: "24", id: 'create_new_stop-img' %>
+      <p id='new_stop-link'> New Stop </p>
+      <br/>
+      <input id="pac-input" type="text" placeholder="Enter Location To Create New Stop">
+      <br/>
+      <input id="marker-checkbox" type="checkbox" value="checked"><p id="marker-checkbox-text">
+        Create marker on map click</p></input>
+    </div>
+  <% end %>
 <% end %>
 
 <script type="text/javascript" charset='utf-8'>

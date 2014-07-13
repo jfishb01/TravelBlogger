@@ -32,10 +32,15 @@
       <div id="stop_map" class="gmaps4rails_map"></div>
       <br/>
       <% @stop.photos.each do |photo| %>
-        <% if current_user.id == @journey.user_id %>
-          <% path = '<a href="' + edit_journey_stop_photo_path(@journey, @stop, photo) + '">&nbsp;<i>Edit title or caption</i></a>' %>
-          <% delete_path = link_to("delete", journey_stop_photo_path(@journey, @stop, photo), method: :delete, class: "delete-photo-link") %>
-          <%= link_to image_tag(photo.image.url(:thumb), alt: "<h3>" + photo.title.to_s + path + "</h3>"), photo.image.url, rel: "prettyPhoto[pp_gal]", class: "prettyphoto", title: "<h4>" + photo.caption.to_s + path + delete_path + "</h4>" %>
+        <% if user_signed_in? %>
+          <% if current_user.id == @journey.user_id %>
+            <% path = '<a href="' + edit_journey_stop_photo_path(@journey, @stop, photo) + '">&nbsp;<i>Edit title or caption</i></a>' %>
+            <% delete_path = link_to("delete", journey_stop_photo_path(@journey, @stop, photo), method: :delete, class: "delete-photo-link") %>
+            <%= link_to image_tag(photo.image.url(:thumb), alt: "<h3>" + photo.title.to_s + path + "</h3>"), photo.image.url, rel: "prettyPhoto[pp_gal]", class: "prettyphoto", title: "<h4>" + photo.caption.to_s + path + delete_path + "</h4>" %>
+            <% else %>
+              <%= link_to image_tag(photo.image.url(:thumb), alt: "<h3>" + photo.title.to_s + "</h3>"), photo.image.url, rel: "prettyPhoto[pp_gal]", class: "prettyphoto", title: "<h4>" + photo.caption.to_s +
+                 "</h4>" %>
+            <% end %>
           <% else %>
             <%= link_to image_tag(photo.image.url(:thumb), alt: "<h3>" + photo.title.to_s + "</h3>"), photo.image.url, rel: "prettyPhoto[pp_gal]", class: "prettyphoto", title: "<h4>" + photo.caption.to_s +
                "</h4>" %>
@@ -44,10 +49,12 @@
 
       <%= form_for @stop, :url => journey_stop_path(@journey, @stop), :html => { :method => :put, :multipart => true,
         :id => 'upload_photos' } do |f| %>
-        <% if current_user.id == @journey.user_id %>
-          <br/>
-          <br/>
-          <p id="upload_photo-link" class="btn-black"> Upload Photos </p>
+        <% if user_signed_in? %>
+          <% if current_user.id == @journey.user_id %>
+            <br/>
+            <br/>
+            <p id="upload_photo-link" class="btn-black"> Upload Photos </p>
+          <% end %>
         <% end %>
         <%= file_field_tag 'images[]', :multiple => true, style: "display:none", id: 'stop_images' %>
       <% end %>
@@ -62,18 +69,22 @@
         <%= link_to "<-", journey_stop_path(@journey, @stop.previous), class: "next_page-btn" %>
       <% end %>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <% if current_user.id == @journey.user_id %>
-        <%= link_to "Edit", edit_journey_stop_path(@journey, @stop), id: 'edit-link' %>
+      <% if user_signed_in? %>
+        <% if current_user.id == @journey.user_id %>
+          <%= link_to "Edit", edit_journey_stop_path(@journey, @stop), id: 'edit-link' %>
+        <% end %>
       <% end %>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       <% next_stop = @stop.next %>
       <% if !next_stop.nil? %>
         <%= link_to "->", journey_stop_path(@journey, @stop.next), class: "next_page-btn" %>
       <% end %>
-      <% if current_user.id == @journey.user_id %>
-        <br/>
-        <br/>
-        <%= link_to("delete", journey_stop_path(@journey, @stop), method: :delete, data: { confirm: "Are you sure you want to delete this stop? This action cannot be undone." }, class: "delete-stop-link") %>
+      <% if user_signed_in? %>
+        <% if current_user.id == @journey.user_id %>
+          <br/>
+          <br/>
+          <%= link_to("delete", journey_stop_path(@journey, @stop), method: :delete, data: { confirm: "Are you sure you want to delete this stop? This action cannot be undone." }, class: "delete-stop-link") %>
+        <% end %>
       <% end %>
     </div>
   </p>
