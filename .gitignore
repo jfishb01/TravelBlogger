@@ -10,7 +10,6 @@ capybara-*.html
 **.orig
 rerun.txt
 pickle-email-*.html
-config/initializers/secret_token.rb
 config/aws.yml
 config/initializers/secret_keys.rb
 config/mailer.yml
