@@ -29,11 +29,15 @@
   <div id='home-content'>
 
     <% if @user.avatar_file_name.nil? %>
-      <% if current_user.id == @user.id %>
-        <%= form_for @user, :url => registration_path(@user),
-          :html => { :method => :put } do |f| %>
-          <p id="upload_avatar-link"> Upload Profile Picture</p>
-          <%= f.file_field :avatar, style: "display:none" %>
+      <% if user_signed_in? %>
+        <% if current_user.id == @user.id %>
+          <%= form_for @user, :url => registration_path(@user),
+            :html => { :method => :put } do |f| %>
+            <p id="upload_avatar-link"> Upload Profile Picture</p>
+            <%= f.file_field :avatar, style: "display:none" %>
+          <% end %>
+        <% else %>
+          <br/>
         <% end %>
       <% else %>
         <br/>
