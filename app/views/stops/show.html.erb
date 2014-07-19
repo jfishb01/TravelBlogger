@@ -61,7 +61,7 @@
     </div>
   </div>
   <p>
-    <%= "#{@stop.content}" %>
+    <%= simple_format(@stop.content) %>
     <br/>
     <div class="next_page-btns">
       <% previous_stop = @stop.previous %>
