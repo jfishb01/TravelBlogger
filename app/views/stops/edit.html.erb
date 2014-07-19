@@ -3,18 +3,18 @@
     $('body').addClass('map-bg');
 
     $('#next-btn').on('click', function() {
-      $('#stop-title-form-box').css('visibility', 'hidden');
-      $('#stop-content-form-box').css('visibility', 'visible');
+      $('#stop-title-form').css('visibility', 'hidden');
+      $('#stop-content-form').css('visibility', 'visible');
     });
 
     $('#back-link').on('click', function() {
-      $('#stop-title-form-box').css('visibility', 'visible');
-      $('#stop-content-form-box').css('visibility', 'hidden');
+      $('#stop-title-form').css('visibility', 'visible');
+      $('#stop-content-form').css('visibility', 'hidden');
     });
   });
 </script>
 
-  <div class='form-box' id="stop-title-form-box">
+  <div class='form-box' id="stop-title-form">
     <div class='form-content'>
       <div class="form-hdr">
         <%= link_to "x", journey_stop_path(@journey, @stop),
@@ -92,7 +92,7 @@
     </div>
 
 
-  <div class='form-box' id="stop-content-form-box">
+  <div class='form-box' id="stop-content-form">
     <div class='form-content'>
       <div class="form-hdr">
         <%= link_to "x", journey_stop_path(@journey, @stop),
