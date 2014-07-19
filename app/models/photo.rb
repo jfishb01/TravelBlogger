@@ -3,6 +3,8 @@ class Photo < ActiveRecord::Base
   belongs_to :journey
   belongs_to :stop
 
+  default_scope -> { order('created_at ASC') }
+
   has_attached_file :image, :styles => { :medium => "800x800>", :thumb => "80x80>" },
     :default_url => "/images/:style/missing.png",
     :url => "/stops/:hash.:extension",
