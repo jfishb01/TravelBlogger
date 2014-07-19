@@ -1,24 +1,20 @@
 <script>
   $(document).ready(function() {
     $('body').addClass('map-bg');
-    $('#lat-hidden').val(<%= params[:latitude] %>);
-    $('#lng-hidden').val(<%= params[:longitude] %>);
-
-    $('#stop_content').html(<%= params[:content] %>);
 
     $('#next-btn').on('click', function() {
-      $('#stop-title-form').css('visibility', 'hidden');
-      $('#stop-content-form').css('visibility', 'visible');
+      $('#stop-title-form-box').css('visibility', 'hidden');
+      $('#stop-content-form-box').css('visibility', 'visible');
     });
 
     $('#back-link').on('click', function() {
-      $('#stop-title-form').css('visibility', 'visible');
-      $('#stop-content-form').css('visibility', 'hidden');
+      $('#stop-title-form-box').css('visibility', 'visible');
+      $('#stop-content-form-box').css('visibility', 'hidden');
     });
   });
 </script>
 
-  <div class='form-box' id="stop-title-form">
+  <div class='form-box' id="stop-title-form-box">
     <div class='form-content'>
       <div class="form-hdr">
         <%= link_to "x", journey_stop_path(@journey, @stop),
@@ -26,7 +22,7 @@
         <h2 class='center'>Edit Stop</h2>
       </div>
       <%= form_for(@stop, url: journey_stop_path(@journey, @stop),
-        html: { method: :put, :multipart => true }) do |f| %>
+        html: { method: :patch }, :multipart => true) do |f| %>
 
         <div id='sign-in-form-content'>
 
@@ -96,7 +92,7 @@
     </div>
 
 
-  <div class='form-box' id="stop-content-form">
+  <div class='form-box' id="stop-content-form-box">
     <div class='form-content'>
       <div class="form-hdr">
         <%= link_to "x", journey_stop_path(@journey, @stop),
@@ -106,10 +102,7 @@
 
       <br/>
 
-      <%= f.text_area :content, :class => 'ckeditor', id: 'stop_content' %>
-
-      <%= f.hidden_field :latitude, id: "lat-hidden" %>
-      <%= f.hidden_field :longitude, id: "lng-hidden" %>
+      <%= f.text_area :content, id: 'stop_content_textarea' %>
 
       <br/>
 

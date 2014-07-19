@@ -9,9 +9,8 @@
 <div class='form-box'>
   <div class='form-content'>
     <div class="form-hdr">
-      <div class='cancel-btn'>
-        <p onclick="history.back()"> x </p>
-      </div>
+      <%= link_to "x", root_path,
+        class: 'cancel-btn' %>
       <h2 class='center'>New Journey</h2>
     </div>
     <%= form_for(@journey, url: journeys_path,

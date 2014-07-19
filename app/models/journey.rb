@@ -14,7 +14,7 @@ class Journey < ActiveRecord::Base
   has_attached_file :photo, :styles => { :medium => "300x300>", :thumb => "80x80>" },
     :default_url => "/images/:style/missing.png",
     :url => "/journeys/:hash.:extension",
-    :path => "/journeys/:hash.:extension",
+    :path => "/journeys/:id/:hash.:extension",
     :hash_secret => ENV['SECRET_KEY2']
   validates_attachment_content_type :photo, :content_type => /\Aimage\/.*\Z/
 

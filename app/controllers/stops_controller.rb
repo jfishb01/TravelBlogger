@@ -44,10 +44,11 @@ class StopsController < ApplicationController
     if(!params[:images].nil?)
       params[:images].each do |image|
         @stop.photos.create(image: image)
+        @stop.update_attributes(stop_update_photo_params)
       end
-    end
-
-    if @stop.update_attributes(stop_update_params)
+      redirect_to journey_stop_url(@journey, @stop)
+    else
+      @stop.update_attributes(stop_update_params)
       redirect_to journey_stop_url(@journey, @stop)
     end
   end
@@ -68,7 +69,11 @@ class StopsController < ApplicationController
     end
 
     def stop_update_params
-      params.permit(:title, :location, :latitude, :longitude, :content, :images, :start_date, :end_date, :updated_at)
+      params.require(:stop).permit(:title, :location, :content, :start_date, :end_date, :updated_at)
+    end
+
+    def stop_update_photo_params
+      params.permit(:images)
     end
 
     def correct_user?

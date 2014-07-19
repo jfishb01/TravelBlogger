@@ -8,24 +8,22 @@
     if(!loc) {
       loc = "";
     }
-    //$('#stop_content').html('<h1>Title: </h1><h2>Location: ' + loc
-    //  + '</h2><br/>Enter blog content here...');
+
     $('#stop_location').val(loc);
-    $('#stop_content').html('Enter blog content here...');
 
     $('#next-btn').on('click', function() {
-      $('#stop-title-form').css('visibility', 'hidden');
-      $('#stop-content-form').css('visibility', 'visible');
+      $('#stop-title-form-box').css('visibility', 'hidden');
+      $('#stop-content-form-box').css('visibility', 'visible');
     });
 
     $('#back-link').on('click', function() {
-      $('#stop-title-form').css('visibility', 'visible');
-      $('#stop-content-form').css('visibility', 'hidden');
+      $('#stop-title-form-box').css('visibility', 'visible');
+      $('#stop-content-form-box').css('visibility', 'hidden');
     });
   });
 </script>
 
-  <div class='form-box' id="stop-title-form">
+  <div class='form-box' id="stop-title-form-box">
     <div class='form-content'>
       <div class="form-hdr">
         <%= link_to "x", journey_path(@journey), class: 'cancel-btn' %>
@@ -102,7 +100,7 @@
     </div>
 
 
-  <div class='form-box' id="stop-content-form">
+  <div class='form-box' id="stop-content-form-box">
     <div class='form-content'>
       <div class="form-hdr">
         <%= link_to "x", journey_path(@journey), class: 'cancel-btn' %>
@@ -111,7 +109,7 @@
 
       <br/>
 
-      <%= f.text_area :content, :class => 'ckeditor', id: 'stop_content' %>
+      <%= f.text_area :content, id: 'stop_content_textarea', value: 'Enter blog content here...' %>
 
       <%= f.hidden_field :latitude, id: "lat-hidden" %>
       <%= f.hidden_field :longitude, id: "lng-hidden" %>

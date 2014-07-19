@@ -3,10 +3,10 @@ class Photo < ActiveRecord::Base
   belongs_to :journey
   belongs_to :stop
 
-  has_attached_file :image, :styles => { :medium => "300x300>", :thumb => "80x80>" },
+  has_attached_file :image, :styles => { :medium => "800x800>", :thumb => "80x80>" },
     :default_url => "/images/:style/missing.png",
     :url => "/stops/:hash.:extension",
-    :path => "/stops/:hash.:extension",
+    :path => "/stops/:id/:hash.:extension",
     :hash_secret => ENV['SECRET_KEY3']
   validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
 

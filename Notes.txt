@@ -6,6 +6,7 @@
 6. Fix profile picture so that it crops instead of stretches?
 7. Get rid of devise flash messages
 8. switch to mercury editor instead of ckeditor
+9. Fix edit page for stops (it doesn't actually make edits)
 
 
 

@@ -1,13 +1,13 @@
 class PhotosController < ApplicationController
 
   def edit
-    @journey = Journey.find(params[:journey_id])
+    @journey = Journey.find_by_obfuscated_id(params[:journey_id])
     @stop = Stop.find(params[:stop_id])
     @photo = Photo.find(params[:id])
   end
 
   def update
-    @journey = Journey.find(params[:journey_id])
+    @journey = Journey.find_by_obfuscated_id(params[:journey_id])
     @stop = Stop.find(params[:stop_id])
     @photo = Photo.find(params[:id])
 
@@ -23,7 +23,7 @@ class PhotosController < ApplicationController
   def destroy
     @photo = Photo.find(params[:id])
     @stop = Stop.find(params[:stop_id])
-    @journey = Journey.find(params[:journey_id])
+    @journey = Journey.find_by_obfuscated_id(params[:journey_id])
     @photo.destroy
 
     redirect_to journey_stop_path(@journey, @stop)
