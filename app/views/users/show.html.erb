@@ -101,7 +101,7 @@
     </div>
     <% if user_signed_in? %>
       <% if current_user.id == @user.id %>
-        <%= link_to "Account", edit_user_registration_path,
+        <%= link_to "Edit Account", edit_user_registration_path,
           id: "edit_account-btn" %>
       <% end %>
     <% end %>

@@ -19,11 +19,11 @@ class Stop < ActiveRecord::Base
 
 
   def next
-    self.class.where("start_date > ? AND id != ?", start_date, id).first
+    self.class.where("start_date > ? AND id != ? AND journey_id = ?", start_date, id, journey_id).first
   end
 
   def previous
-    self.class.unscoped.where("start_date < ? AND id != ?", start_date, id).order("start_date DESC, end_date DESC").first
+    self.class.unscoped.where("start_date < ? AND id != ? AND journey_id = ?", start_date, id, journey_id).order("start_date DESC, end_date DESC").first
   end
 end
 
