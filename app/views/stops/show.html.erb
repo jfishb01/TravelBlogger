@@ -36,14 +36,14 @@
           <% if current_user.id == @journey.user_id %>
             <% path = '<a href="' + edit_journey_stop_photo_path(@journey, @stop, photo) + '">&nbsp;<i>Edit title or caption</i></a>' %>
             <% delete_path = link_to("delete", journey_stop_photo_path(@journey, @stop, photo), method: :delete, class: "delete-photo-link") %>
-            <%= link_to image_tag(photo.image.url(:thumb), alt: "<h3>" + photo.title.to_s + path + "</h3>"), photo.image.url(:medium), rel: "prettyPhoto[pp_gal]", class: "prettyphoto", title: "<h4><br/><br/>" + photo.caption.to_s + path + delete_path + "</h4>" %>
+            <%= link_to image_tag(photo.image.url(:thumb), alt: "<h4>" + photo.title.to_s + path + "</h4>"), photo.image.url(:medium), rel: "prettyPhoto[pp_gal]", class: "prettyphoto", title: "<h5><br/><br/>" + photo.caption.to_s + path + delete_path + "</h5>" %>
             <% else %>
-              <%= link_to image_tag(photo.image.url(:thumb), alt: "<h3>" + photo.title.to_s + "</h3>"), photo.image.url(:medium), rel: "prettyPhoto[pp_gal]", class: "prettyphoto", title: "<h4><br/><br/>" + photo.caption.to_s +
-                 "</h4>" %>
+              <%= link_to image_tag(photo.image.url(:thumb), alt: "<h4>" + photo.title.to_s + "</h4>"), photo.image.url(:medium), rel: "prettyPhoto[pp_gal]", class: "prettyphoto", title: "<h5><br/><br/>" + photo.caption.to_s +
+                 "</h5>" %>
             <% end %>
           <% else %>
-            <%= link_to image_tag(photo.image.url(:thumb), alt: "<h3>" + photo.title.to_s + "</h3>"), photo.image.url(:medium), rel: "prettyPhoto[pp_gal]", class: "prettyphoto", title: "<h4><br/><br/>" + photo.caption.to_s +
-               "</h4>" %>
+            <%= link_to image_tag(photo.image.url(:thumb), alt: "<h4>" + photo.title.to_s + "</h4>"), photo.image.url(:medium), rel: "prettyPhoto[pp_gal]", class: "prettyphoto", title: "<h5><br/><br/>" + photo.caption.to_s +
+               "</h5>" %>
           <% end %>
       <% end %>
 
