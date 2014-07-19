@@ -10,4 +10,5 @@
  *
  *= require_self
  *= require prettyphoto-rails
+ *= require_tree .
  */
