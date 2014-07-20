@@ -16,6 +16,11 @@ $darkBlue: #005d8b;
   box-sizing: border-box;
 }
 
+html, body, p, a, h1, h2, h3, h4, h5, input {
+  font-family: Skia;
+  letter-spacing: 1px;
+}
+
 .show_stop {
   white-space: nowrap
 }
@@ -249,7 +254,7 @@ $darkBlue: #005d8b;
   margin-left: 4px;
   margin-right: 4px;
   width: 250px;
-  font-family: Roboto;
+  font-family: Skia;
   font-size: 15px;
   font-weight: 300;
   text-overflow: ellipsis;
