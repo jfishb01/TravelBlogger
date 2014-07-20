@@ -14,6 +14,9 @@ config/aws.yml
 config/initializers/secret_keys.rb
 config/mailer.yml
 config/application.yml
+app/assets/stylesheets/custom-old.css.scss
+app/assets/stylesheets/custom-blue.css.scss
+app/assets/stylesheets/custom-green.css.scss
 
 ## Environment normalisation:
 /.bundle
