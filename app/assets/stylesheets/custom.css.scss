@@ -6,9 +6,12 @@
 $grayMediumLight: #969696;
 $offWhite: #e9ecec;
 $offBlack: #0e0e0e;
-$deepSkyBlue: #0088cc;
+$deepSkyBlue: #0099cc;
 $darkGray: #1E1E1E;
 $darkBlue: #005d8b;
+$oceanBlue: #0099cc;
+$mediumGray: #333333;
+$mediumBlue: #004e67;
 
 @mixin box_sizing {
   -moz-box-sizing: border-box;
@@ -16,7 +19,7 @@ $darkBlue: #005d8b;
   box-sizing: border-box;
 }
 
-html, body, p, a, h1, h2, h3, h4, h5, input {
+html, body, p, a, h1, h2, h3, h4, h5, input, textarea {
   font-family: Skia;
   letter-spacing: 1px;
 }
@@ -199,8 +202,25 @@ html, body, p, a, h1, h2, h3, h4, h5, input {
   width: 345px;
 }
 
+#stop-journey-title {
+  background: $mediumGray;
+  padding-left: 10px;
+  padding-right: 10px;
+  border: 3px $offBlack solid;
+  display: inline;
+  color: $offWhite;
+  top: -30px;
+  position: relative;
+  border-radius: 7px;
+  &:hover {
+    text-decoration: none;
+    cursor: default;
+  }
+
+}
+
 #journey-title {
-  background: $darkGray;
+  background: $mediumGray;
   padding-left: 10px;
   padding-right: 10px;
   border: 3px $offBlack solid;
@@ -243,7 +263,7 @@ html, body, p, a, h1, h2, h3, h4, h5, input {
   left: 88px;
   position: absolute;
   border: 3px $offBlack solid;
-  background: $darkGray;
+  background: $mediumGray;
   border-radius: 12px;
 }
 
@@ -273,14 +293,16 @@ html, body, p, a, h1, h2, h3, h4, h5, input {
 
 html {
   height: 100%;
-  background: $offBlack;
+  // background: $offBlack;
+  background: $oceanBlue;
 }
 
 body {
   padding-top: 60px;
   height: 100%;
   overflow: hidden;
-  background: $offBlack;
+  // background: $offBlack;
+  background: $oceanBlue;
 }
 
 section {
@@ -308,27 +330,30 @@ textarea {
 /* Header */
 
 .navbar-inner{
-  background: #3f3f3f;
-  background-image: linear-gradient(to bottom, #3f3f3f 0%,#595959 18%,#2d2d2d 50%,#2d2d2d 50%,#282828 55%,$offBlack 100%);
-  border: none;
+  background: $mediumGray;
+  // background-image: linear-gradient(to bottom, #3f3f3f 0%,#595959 18%,#2d2d2d 50%,#2d2d2d 50%,#282828 55%,$offBlack 100%);
+  border-bottom: 8px;
+  border-color: white;
+  border-style: solid;
 }
 
 #logo {
   float: left;
   margin-right: 10px;
   font-size: 1.7em;
-  color: $offWhite;
+  color: white;
   text-transform: uppercase;
   letter-spacing: -1px;
   padding-top: 9px;
   font-weight: bold;
   &:hover {
+    color: $grayMediumLight !important;
     text-decoration: none;
   }
 }
 
 .header_links {
-  color: $offWhite !important;
+  color: white !important;
   text-transform: uppercase;
   display: inline;
   font-size: 1.2em;
@@ -348,11 +373,11 @@ footer {
   width: 920px;
   bottom: 0px;
   padding-top: 5px;
-  border-top: 1px solid $offWhite;
+  border-top: 1px solid white;
   a {
-    color: $offWhite;
+    color: white;
     &:hover {
-      color: $grayMediumLight;
+      color: $mediumGray;
       text-decoration: none;
     }
   }
@@ -360,7 +385,7 @@ footer {
     -webkit-filter: opacity(65%);
   }
   p {
-    color: $offWhite;
+    color: white;
     display: inline;
   }
   small {
@@ -383,11 +408,11 @@ footer {
 
 #home-content-box {
   margin-top: 0px;
-  background: $darkGray;
-  border-color: $offBlack;
-  border: 3px;
+  background: $mediumGray;
+  border-color: $darkGray;
+  border-width: 4px;
   border-style: solid;
-  border-radius: 40px;
+  border-radius: 20px;
   opacity: 0.98;
   padding-left: 35px;
   padding-right: 35px;
@@ -404,7 +429,7 @@ footer {
   border-color: $offBlack;
   border: 3px;
   border-style: solid;
-  border-radius: 40px;
+  border-radius: 20px;
   opacity: 0.94;
   padding-left: 35px;
   padding-right: 35px;
@@ -419,7 +444,7 @@ footer {
   border-color: $offBlack;
   border: 3px;
   border-style: solid;
-  border-radius: 40px;
+  border-radius: 20px;
   opacity: 0.94;
 }
 
@@ -429,7 +454,7 @@ footer {
   border-color: $offBlack;
   border: 3px;
   border-style: solid;
-  border-radius: 40px;
+  border-radius: 20px;
   opacity: 0.94;
 }
 
@@ -461,6 +486,8 @@ footer {
   padding: 10px;
   font-size: 28px;
   color: $deepSkyBlue;
+  font-family: Skia;
+  letter-spacing: 1px;
   &:hover {
     text-decoration: none;
     background: #5c5c5c;
@@ -493,7 +520,7 @@ footer {
 }
 
 .home_journey_name {
-  color: $offWhite;
+  color: white;
   line-height: 40px;
   margin-right: 15px;
   margin-left: 15px;
@@ -538,7 +565,7 @@ footer {
 
 #selected_stop_name {
   display: inline;
-  color: $yellow;
+  color: $offBlack;
   text-align: center;
   line-height: 40px;
   margin-right: 15px;
@@ -548,7 +575,7 @@ footer {
 }
 
 .stop_indicator {
-  color: $yellow;
+  color: $offBlack;
   text-align: center;
   line-height: 40px;
   margin-right: 15px;
@@ -568,22 +595,20 @@ footer {
 
 /* Background Images */
 
+
 .map-bg {
-  background: url('home-bg.png');
-  /*background-size: 95%;*/
-  /*background-position: 40px 0px;*/
-  background-size: 78%;
-  background-position: 130px 0px;
-  background-repeat: no-repeat;
+  background: url('blue-map2-bg.png') no-repeat 50% 0;
+  background-size: 80%;
+  margin: 0 auto;
 }
 
 /* Sidebar */
 
 #sidebar {
   visibility: hidden;
-  right: 0px;
-  width: 250px;
-  background: $darkGray;
+  right: -8px;
+  width: 258px;
+  background: $mediumGray;
   position: fixed;
   /*position: relative;*/
   height: 480px;
@@ -593,6 +618,7 @@ footer {
   border-bottom: 4px;
   border-style: solid;
   border-color: $offBlack;
+  border-radius: 8px;
 }
 
 #sidebar-tab {
@@ -607,7 +633,7 @@ footer {
   border-top: 4px;
   border-bottom: 4px;
   border-style: solid;
-  border-color: $deepSkyBlue;
+  border-color: $mediumBlue;
   width: 270px;
   height: 50px;
   /*top: 200px;*/
@@ -615,7 +641,7 @@ footer {
   p {
     margin-right: 250px;
     font-size: 20px;
-    color: $deepSkyBlue;
+    color: $oceanBlue;
     text-shadow:
       -1px -1px 0 #000,
       1px -1px 0 #000,
@@ -642,14 +668,14 @@ footer {
   border-bottom: 4px;
   border-right: 0px;
   border-style: solid;
-  border-color: $deepSkyBlue;
+  border-color: $mediumBlue;
   width: 20px;
   height: 42px;
   /*top: 200px;*/
   top: 37.5%;
   p {
     font-size: 20px;
-    color: $deepSkyBlue;
+    color: $oceanBlue;
     text-shadow:
       -1px -1px 0 #000,
       1px -1px 0 #000,
@@ -686,6 +712,9 @@ footer {
   border-radius: 30px;
   height: 60px;
   width: 60px;
+  border-style: solid;
+  border-color: $offBlack;
+  border-width: 2px;
   box-shadow: 0 0 8px rgba(0, 0, 0, .8);
   position: relative;
 }
@@ -864,7 +893,7 @@ footer {
 
 #new_journey-btn {
   font-size: 18px;
-  color: $offWhite;
+  color: white;
   position: absolute;
   padding-top: 2px;
   left: 48px;
@@ -911,10 +940,11 @@ footer {
 
 #sign-up-link {
   cursor: pointer;
-  font-size: 28px;
+  color: white;
+  font-size: 36px;
   &:hover {
     text-decoration: none;
-    color: $deepSkyBlue;
+    color: $mediumGray;
   }
 }
 

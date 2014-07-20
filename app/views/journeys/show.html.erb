@@ -43,9 +43,7 @@ function initialize() {
         "featureType": "water",
         "elementType": "geometry",
         "stylers": [
-            { "hue": "#0e0e0e" },
-            { "saturation": -100 },
-            { "lightness": -100 },
+            { "color": "#0099cc" },
             { "visibility": "on" }
         ]
     },
@@ -63,9 +61,10 @@ function initialize() {
         "featureType": "landscape",
         "elementType": "all",
         "stylers": [
-            { "hue": "#ffdfa6" },
-            { "saturation": 100 },
-            { "lightness": -4 },
+            { "hue": "#ccff00" },
+            { "saturation": -100 },
+            { "lightness": 65 },
+            { "gamma": 0.35 },
             { "visibility": "on" }
         ]
     },
@@ -73,9 +72,10 @@ function initialize() {
         "featureType": "poi",
         "elementType": "geometry",
         "stylers": [
-            { "hue": "#635641" },
-            { "saturation": 100 },
-            { "lightness": 0 },
+            { "hue": "#ccff00" },
+            { "saturation": -100 },
+            { "lightness": 45 },
+            { "gamma": 0.35 },
             { "visibility": "on" }
         ]
     },
@@ -120,6 +120,92 @@ function initialize() {
         ]
     }
   ];
+
+
+
+  // //Custom map
+  // var mapStyle = [
+  //   {
+  //       "featureType": "water",
+  //       "elementType": "geometry",
+  //       "stylers": [
+  //           { "hue": "#0e0e0e" },
+  //           { "saturation": -100 },
+  //           { "lightness": -100 },
+  //           { "visibility": "on" }
+  //       ]
+  //   },
+  //   {
+  //       "featureType": "water",
+  //       "elementType": "labels",
+  //       "stylers": [
+  //           { "hue": "#e9ecec" },
+  //           { "saturation": 100 },
+  //           { "lightness": 100 },
+  //           { "visibility": "on" }
+  //       ]
+  //   },
+  //   {
+  //       "featureType": "landscape",
+  //       "elementType": "all",
+  //       "stylers": [
+  //           { "hue": "#ffdfa6" },
+  //           { "saturation": 100 },
+  //           { "lightness": -4 },
+  //           { "visibility": "on" }
+  //       ]
+  //   },
+  //   {
+  //       "featureType": "poi",
+  //       "elementType": "geometry",
+  //       "stylers": [
+  //           { "hue": "#635641" },
+  //           { "saturation": 100 },
+  //           { "lightness": 0 },
+  //           { "visibility": "on" }
+  //       ]
+  //   },
+  //   {
+  //       "featureType": "road",
+  //       "elementType": "all",
+  //       "stylers": [
+  //           { "hue": "#777777" },
+  //           { "saturation": -100 },
+  //           { "lightness": -6 },
+  //           { "visibility": "on" }
+  //       ]
+  //   },
+  //   {
+  //       "featureType": "administrative",
+  //       "elementType": "all",
+  //       "stylers": [
+  //           { "hue": "#005d8b" },
+  //           { "saturation": 100 },
+  //           { "lightness": -22 },
+  //           { "visibility": "on" }
+  //       ]
+  //   },
+  //   {
+  //       "featureType": "transit",
+  //       "elementType": "all",
+  //       "stylers": [
+  //           { "hue": "#444444" },
+  //           { "saturation": 0 },
+  //           { "lightness": -64 },
+  //           { "visibility": "off" }
+  //       ]
+  //   },
+  //   {
+  //       "featureType": "poi",
+  //       "elementType": "labels",
+  //       "stylers": [
+  //           { "hue": "#38cc6d" },
+  //           { "saturation": 100 },
+  //           { "lightness": -22 },
+  //           { "visibility": "on" }
+  //       ]
+  //   }
+  // ];
 
   // Build the map
   var map = Gmaps.build('Google');
@@ -174,7 +260,7 @@ function initialize() {
   // Format polyline
   var lineSymbol = {
     path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-    fillColor: '#0088cc',
+    fillColor: '#004e67',
     fillOpacity: 1.0,
     strokeColor: '#1E1E1E',
     strokeOpacity: 1.0
