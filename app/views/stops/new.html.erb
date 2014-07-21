@@ -20,6 +20,16 @@
       $('#stop-title-form').css('visibility', 'visible');
       $('#stop-content-form').css('visibility', 'hidden');
     });
+
+    $("#stop_content").focus(function() {
+      if (this.value === this.defaultValue) {
+          this.value = '';
+      }
+    }).blur(function() {
+      if (this.value === '') {
+        this.value = this.defaultValue;
+      }
+    });
   });
 </script>
 
