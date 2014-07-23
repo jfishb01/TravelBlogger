@@ -10,8 +10,7 @@
               :delete, class: "header_links" %></li>
           <% else %>
             <% if request.original_url != root_url %>
-              <li><%= link_to "Register", new_user_registration_path, class:
-                "header_links" %></li>
+              <li><%= link_to "Register", new_user_registration_path, confirm: "Account creation is only necessary for publishing your own content. All other users' content can be viewed without creating an account. Would you like to continue?", class: "header_links" %></li>
             <% end %>
             <li><%= link_to "Sign in", new_user_session_path, class:
               "header_links" %></li>

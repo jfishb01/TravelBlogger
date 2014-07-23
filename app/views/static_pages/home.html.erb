@@ -90,6 +90,6 @@
   </div>
 <% else %>
   <div class='center' id='sign-up-link-div'>
-    <%= link_to "Sign Up", new_user_registration_path, id: 'sign-up-link' %>
+    <%= link_to "Sign Up", new_user_registration_path, id: 'sign-up-link', confirm: "Account creation is only necessary for publishing your own content. All other users' content can be viewed without creating an account. Would you like to continue?" %>
   </div>
 <% end %>
