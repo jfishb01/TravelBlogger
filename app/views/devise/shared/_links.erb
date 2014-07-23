@@ -4,7 +4,7 @@
   <% end -%>
 
   <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
-    <%= link_to "Sign up", new_registration_path(resource_name) %><br />
+    <%= link_to "Sign up", new_registration_path(resource_name), confirm: "Account creation is only necessary for publishing your own content. All other users' content can be viewed without creating an account. Would you like to continue?" %><br />
   <% end -%>
 
   <%- if devise_mapping.recoverable? && controller_name != 'passwords' %>
