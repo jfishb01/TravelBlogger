@@ -11,6 +11,7 @@ Here is my own (sadly incomplete) personal blog using the site: http://journeytr
 
 About the site
 ===========
+
 Each Journey blog consists of a series of stops displayed on a map where each stop is its own complete blog entry with photos and written content. As more and more stops get added to the journey, the map grows so that the reader may follow the blogger as they travel around the world. Each user and journey has a hashed URL so that it can be shared with family and friends without requiring their sign-up on the site.
 
 Technologies
