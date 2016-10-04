@@ -1,4 +1,4 @@
-Journey
+Journey Travel Blog
 ===========
 
 Website link: http://journeytravelblog.herokuapp.com
