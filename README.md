@@ -21,3 +21,4 @@ Technologies
 - Paperclip and prettyphoto-rails for image attachments and display
 - Geocoder and gmaps4rails for map components
 - PostgreSQL database backend
+
